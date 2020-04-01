@@ -55,7 +55,8 @@ ROOT_URLCONF = 'joint_project_trainingwell.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 'joint_project_trainingwell/tempates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
