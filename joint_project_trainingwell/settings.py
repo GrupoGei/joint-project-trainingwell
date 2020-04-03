@@ -55,7 +55,8 @@ ROOT_URLCONF = 'joint_project_trainingwell.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 'joint_project_trainingwell/tempates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -120,3 +121,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/apps/reservationsr/static/',
+]
+
+MEDIA_ROOT = (
+    os.path.join(BASE_DIR, 'apps/reservations/static/media')
+)
+MEDIA_URL = '/apps/reservations/static/media/'
