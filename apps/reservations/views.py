@@ -12,3 +12,8 @@ def show_installations(request):
     }
 
     return render(request, 'installation_list.html', context)
+
+
+def reserve_day_hours(request):
+    context = {}
+    return render(request, 'reservation_page.html', context)
