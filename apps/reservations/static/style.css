@@ -63,3 +63,18 @@
 
   }
 }
+
+.column-reservation{
+  float: left;
+  width: 50%;
+}
+
+.row-reservation:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.margin{
+  margin: 3%;
+}

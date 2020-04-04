@@ -6,5 +6,5 @@ from .models import *
 admin.site.register(Installation)
 admin.site.register(Sport)
 admin.site.register(CurrentReservations)
-admin.site.register(Date)
+admin.site.register(RangeHours)
 admin.site.register(Reservation)
