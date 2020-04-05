@@ -63,7 +63,8 @@ GLOBAL_SETTINGS = {
         (9, '18:00'),
         (10, '19:00'),
         (11, '20:00'),
-    ]
+    ],
+    'CLOSURE_HOUR': (12, '21:00')
 }
 
 MIDDLEWARE = [

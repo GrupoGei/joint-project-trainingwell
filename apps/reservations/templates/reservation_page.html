@@ -15,16 +15,19 @@
             <h2>{{ date }}</h2>
             <p>Hores disponibles:</p>
             <ul>
-                {% for hours in hours_available %}
-                    <li><a href="#">{{ hours }}</a></li>
+                {% for start, end in total_hours %}
+                    {% if start in hours_available %}
+                        <li><p style="color: green">{{ start }} - {{ end }}</p></li>
+                    {% else %}
+                        <li><p style="color: red">{{ start }} - {{ end }}</p></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button class="btn btn-success" type="submit">Log in</button>
+                <button class="btn btn-success" type="submit">Reserva</button>
             </form>
-</form>
         </div>
         <div class="column-reservation">
             <h2>{{ date }}</h2>
