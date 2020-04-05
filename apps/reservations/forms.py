@@ -93,6 +93,7 @@ def get_hours_to_reserve(start, end):
         h += 1
     return result
 
+
 def get_hours_not_available(hours_available):
     """
     Returns the "hours" (its indices actually) that are already reserved.
@@ -106,40 +107,4 @@ def get_hours_not_available(hours_available):
             hours_not_available.append(h)
     return hours_not_available
 
-
-def get_first_not_available_hours(hours_available):
-    """
-    Returns the first hours where hours are not available in each range.
-    :param hours_available: [0, 1, 2, 3, 5, 8, 9]
-    :return: [4, 6]
-    """
-    range_not_available = get_range_list_not_available_hours(hours_available)
-    result = []
-    for range in range_not_available:
-        result.append(range[0])
-
-    return result
-
-
-def get_range_list_not_available_hours(hours_available):
-    """
-    Returns each range of not available hours.
-    :param hours_available: [0, 1, 2, 3, 5, 8, 9]
-    :return: [[4], [6,7]]
-    """
-    total_hours_keys = list(range(len(settings.GLOBAL_SETTINGS.get('HOURS_AVAILABLE'))))
-    hours_not_available = []
-    for h in total_hours_keys:
-        if h not in hours_available:
-            hours_not_available.append(h)
-
-    if len(hours_not_available) == 0:
-        return []
-    elif len(hours_not_available) == 1:
-        return hours_not_available
-    else:
-        range_hours_not_available = []
-        for k, g in groupby(enumerate(hours_not_available), lambda x: x[0] - x[1]):
-            range_hours_not_available.append(list(map(itemgetter(1), g)))
-        return range_hours_not_available
 
