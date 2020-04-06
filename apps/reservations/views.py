@@ -4,7 +4,6 @@ from .models import CurrentReservations
 
 
 # Create your views here.
-
 def show_installations(request):
     installations = Installation.objects.order_by('sports')
     context = {
