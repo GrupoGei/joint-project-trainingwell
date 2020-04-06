@@ -7,12 +7,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reservation page</title>
+    <title>Reservation page {{ installation.name }}</title>
 </head>
 <body>
     <div class="row-reservation margin">
+        <h1 style="text-align: center; margin-bottom: 2%">{{ installation.name }}</h1>
         <div class="column-reservation">
-            <h2>{{ date }}</h2>
+            <h3>{{ date }}</h3>
             <p>Hores disponibles:</p>
             <ul>
                 {% for start, end in total_hours %}

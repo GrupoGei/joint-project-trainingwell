@@ -15,7 +15,7 @@ class RangeHoursForm(forms.ModelForm):
             "end_hour"
         )
 
-    def save(self, commit, current_user, hours_available):
+    def save(self, commit, current_user, hours_available, installation):
         hours = settings.GLOBAL_SETTINGS.get('HOURS_AVAILABLE')
         range_hours = super(RangeHoursForm, self).save(commit=False)
         if range_hours.start_hour >= range_hours.end_hour:
@@ -25,12 +25,9 @@ class RangeHoursForm(forms.ModelForm):
             # TODO: ERROR PAGE
             raise forms.ValidationError("Rang d'hores no disponible, hi ha col·lisió d'hores.")
         else:
-            sport = Sport.objects.filter(name="Pàdel")
-            installation = Installation.objects.create(name="Pista Pàdel", description="Hey", capacity=2)
-            installation.sports.set(sport)
-            installation.save()
             super(RangeHoursForm, self).save()
-            reservation = Reservation.objects.create(day=date.today(), range_hours=range_hours, organizer=current_user, installation=installation)
+            reservation = Reservation.objects.create(day=date.today(), range_hours=range_hours, organizer=current_user,
+                                                     installation=installation)
             reservation.save()
 
 

@@ -15,8 +15,8 @@ def show_installations(request):
     return render(request, 'installation_list.html', context)
 
 
-def reserve_day_hours(request):
-
+def reserve_day_hours(request, pk_inst):
+    installation = Installation.objects.get(pk=pk_inst)
     current_date = date.today()
     reservations = Reservation.objects.filter(day=current_date)
     range_hours_reserved = RangeHours.objects.none()
@@ -30,12 +30,13 @@ def reserve_day_hours(request):
     if request.method == 'POST':
         form = RangeHoursForm(request.POST)
         if form.is_valid():
-            form.save(True, request.user, hours_available)
+            form.save(True, request.user, hours_available, installation)
             return redirect('index')
     else:
         form = RangeHoursForm()
 
     context = {
+        'installation': installation,
         'date': current_date,
         'reservations': reservations,
         'range_hours': range_hours_reserved,
