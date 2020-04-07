@@ -3,6 +3,7 @@ from . import views
 from django.contrib import admin
 
 urlpatterns = [
-    path('', views.show_installations, name='index'),
+    #path('', views.show_installations, name='index'),
     path('', views.show_installations_reserved, name='index'),
+    #path('', views.show_installations, name='index'),
 ]
