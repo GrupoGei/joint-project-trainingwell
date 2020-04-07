@@ -49,6 +49,8 @@ BOOTSTRAP4 = {
     'include_jquery': True,
 }
 
+DATE_FORMAT = "Y-m-d"
+
 GLOBAL_SETTINGS = {
     'HOURS_AVAILABLE': [
         (0, '9:00'),
@@ -139,7 +141,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 

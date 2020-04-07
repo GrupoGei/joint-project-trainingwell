@@ -16,18 +16,21 @@
           {% for installation in installations %}
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                    <image href="../static/media/{{ installation.image }}" height="100%" width="115%"/>
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#000000"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                    <image href="../static/media/{{ installation.image }}" height="100%" width="100%" style="background-size: contain"/>
                 </svg>
                 <div class="card-body">
-                    <h4 style="font-weight: bold;"> {{ installation.name }}</h4>
-                  <p class="card-text">{{ installation.description }}</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <p><a class="btn btn-sm btn-success" href="/reservations/{{ installation.pk }}" role="button">Reserva</a></p>
+                    <h4 style="font-weight: bold; margin: -2%"> {{ installation.name }}</h4>
+                    <hr>
+                    <div class="card-text description">
+                       {{ installation.description }}
                     </div>
-                    <small class="text-muted">Capacitat: {{ installation.capacity }}</small>
-                  </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group button-div">
+                            <p><a class="btn btn-sm btn-success" href="/reservations/{{ installation.pk }}/date/{{ date }}" role="button">Reserva</a></p>
+                        </div>
+                        <small class="text-muted" style="margin-top: 10%">Capacitat: {{ installation.capacity }}</small>
+                    </div>
                 </div>
               </div>
             </div>

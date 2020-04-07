@@ -1,23 +1,25 @@
 from django.shortcuts import render, redirect
 from .models import *
-from datetime import date
+from datetime import date, timedelta
 from .forms import RangeHoursForm
-
+from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 def show_installations(request):
-
+    first_date = date.today() + timedelta(days=7)
     installations = Installation.objects.order_by('sports')
     context = {
-        'installations' : installations,
+        'installations': installations,
+        'date': first_date,
     }
 
     return render(request, 'installation_list.html', context)
 
 
-def reserve_day_hours(request, pk_inst):
+def reserve_day_hours(request, pk_inst, current_date):
+    if current_date < str((date.today()+timedelta(days=7))):
+        raise PermissionDenied("Has de reservar amb un marge d'una setmana com a mínim.")
     installation = Installation.objects.get(pk=pk_inst)
-    current_date = date.today()
     reservations = Reservation.objects.filter(day=current_date)
     range_hours_reserved = RangeHours.objects.none()
     for reservation in reservations:

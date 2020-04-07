@@ -13,7 +13,7 @@ class Sport(models.Model):
 
 class Installation(models.Model):
     name = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.TextField(max_length=300)
     image = models.ImageField(blank=True)
     capacity = models.IntegerField()
     sports = models.ManyToManyField(Sport, related_name='installations')

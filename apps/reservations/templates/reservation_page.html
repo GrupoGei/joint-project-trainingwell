@@ -24,15 +24,15 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+        </div>
+        <div class="column-reservation">
+            <h3>Fes una reserva:</h3>
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <button class="btn btn-success" type="submit">Reserva</button>
             </form>
-        </div>
-        <div class="column-reservation">
-            <h2>{{ date }}</h2>
-            <p>Hey</p>
+            <h3 style="margin-top: 5%">Les teves reserves fins ara:</h3>
         </div>
     </div>
 

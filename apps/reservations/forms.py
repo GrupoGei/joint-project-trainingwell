@@ -14,6 +14,10 @@ class RangeHoursForm(forms.ModelForm):
             "start_hour",
             "end_hour"
         )
+        labels = {
+            "start_hour": "Hora de començament",
+            "end_hour": "Hora de finalització"
+        }
 
     def save(self, commit, current_user, hours_available, installation):
         hours = settings.GLOBAL_SETTINGS.get('HOURS_AVAILABLE')
