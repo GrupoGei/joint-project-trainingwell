@@ -1,8 +1,10 @@
 from itertools import groupby
 from operator import itemgetter
-
+from datetime import date, timedelta
 from django import forms
 from django.conf import settings
+from tempus_dominus.widgets import DatePicker, DateTimePicker
+
 from .models import *
 from datetime import date
 
@@ -107,5 +109,17 @@ def get_hours_not_available(hours_available):
         if h not in hours_available:
             hours_not_available.append(h)
     return hours_not_available
+
+
+class DateForm(forms.Form):
+    date_field = forms.DateField(
+        widget=DatePicker(
+            attrs={
+                'append': 'fa fa-calendar',
+                'icon_toggle': True,
+            }
+        ),
+        label='Cerca disponibilitat en una altra data'
+    )
 
 

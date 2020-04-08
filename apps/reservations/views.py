@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
+
 from .models import *
-from datetime import date, timedelta
-from .forms import RangeHoursForm
+from datetime import date, timedelta, datetime
+from .forms import RangeHoursForm, DateForm
 from django.core.exceptions import PermissionDenied
 
-# Create your views here.
+
 def show_installations(request):
     first_date = date.today() + timedelta(days=7)
     installations = Installation.objects.order_by('sports')
@@ -17,10 +19,8 @@ def show_installations(request):
 
 
 def reserve_day_hours(request, pk_inst, current_date):
-    if current_date < str((date.today()+timedelta(days=7))):
-        raise PermissionDenied("Has de reservar amb un marge d'una setmana com a mínim.")
     installation = Installation.objects.get(pk=pk_inst)
-    reservations = Reservation.objects.filter(day=current_date)
+    reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"))
     range_hours_reserved = RangeHours.objects.none()
     for reservation in reservations:
         range_hours_reserved |= RangeHours.objects.filter(reservation=reservation)
@@ -36,6 +36,7 @@ def reserve_day_hours(request, pk_inst, current_date):
             return redirect('index')
     else:
         form = RangeHoursForm()
+        date_form = DateForm()
 
     context = {
         'installation': installation,
@@ -45,7 +46,8 @@ def reserve_day_hours(request, pk_inst, current_date):
         'total_hours': total_hours,
         'hours_available': hours_available,
         'hours_reserved': hours_reserved,
-        'form': form
+        'form': form,
+        'date_form': date_form
     }
 
     return render(request, 'reservation_page.html', context)
@@ -100,3 +102,4 @@ def get_hours_reserved(range_hours_reserved):
             hours_reserved.append(total_hours[int(h)][1])
             h += 1
     return hours_reserved
+

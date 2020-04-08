@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'crispy_forms',
+    'tempus_dominus'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -49,7 +50,7 @@ BOOTSTRAP4 = {
     'include_jquery': True,
 }
 
-DATE_FORMAT = "Y-m-d"
+DATE_FORMAT = "d-m-Y"
 
 GLOBAL_SETTINGS = {
     'HOURS_AVAILABLE': [
