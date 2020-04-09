@@ -32,7 +32,7 @@ def reserve_day_hours(request, pk_inst, current_date):
     if request.method == 'POST':
         form = RangeHoursForm(request.POST)
         if form.is_valid():
-            form.save(True, request.user, hours_available, installation)
+            form.save(True, request.user, current_date, hours_available, installation)
             return redirect('index')
     else:
         form = RangeHoursForm()
@@ -102,4 +102,13 @@ def get_hours_reserved(range_hours_reserved):
             hours_reserved.append(total_hours[int(h)][1])
             h += 1
     return hours_reserved
+
+
+def change_date(request, pk_inst):
+    if request.method == 'POST':
+        date_form = DateForm(request.POST)
+        if date_form.is_valid():
+            curr_date = date_form.cleaned_data['date_field']
+            curr_date_formatted = str(curr_date.day)+'-'+str(curr_date.month)+'-'+str(curr_date.year)
+            return redirect('/reservations/'+str(pk_inst)+'/date/'+curr_date_formatted)
 

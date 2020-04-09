@@ -1,6 +1,6 @@
 from itertools import groupby
 from operator import itemgetter
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from django import forms
 from django.conf import settings
 from tempus_dominus.widgets import DatePicker, DateTimePicker
@@ -21,7 +21,7 @@ class RangeHoursForm(forms.ModelForm):
             "end_hour": "Hora de finalització"
         }
 
-    def save(self, commit, current_user, hours_available, installation):
+    def save(self, commit, current_user, current_date, hours_available, installation):
         hours = settings.GLOBAL_SETTINGS.get('HOURS_AVAILABLE')
         range_hours = super(RangeHoursForm, self).save(commit=False)
         if range_hours.start_hour >= range_hours.end_hour:
@@ -32,7 +32,7 @@ class RangeHoursForm(forms.ModelForm):
             raise forms.ValidationError("Rang d'hores no disponible, hi ha col·lisió d'hores.")
         else:
             super(RangeHoursForm, self).save()
-            reservation = Reservation.objects.create(day=date.today(), range_hours=range_hours, organizer=current_user,
+            reservation = Reservation.objects.create(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"), range_hours=range_hours, organizer=current_user,
                                                      installation=installation)
             reservation.save()
 
@@ -117,9 +117,12 @@ class DateForm(forms.Form):
             attrs={
                 'append': 'fa fa-calendar',
                 'icon_toggle': True,
-            }
+            },
         ),
         label='Cerca disponibilitat en una altra data'
     )
+
+    def clean_date_field(self):
+        return self.cleaned_data['date_field']
 
 

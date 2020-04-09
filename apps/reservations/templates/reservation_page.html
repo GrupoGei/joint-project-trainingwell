@@ -21,10 +21,10 @@
             <div class="container">
                 <div class="row">
                     <div class="date-form">
-                    <form method="get">
+                    <form method="POST" action="{% url 'change_date' installation.pk %}">
                         {% csrf_token %}
                         {{ date_form }}
-                        <input style="margin-top: 5%; margin-bottom: 0%;" class="btn btn-sm btn-primary" type="submit" value="Cerca">
+                        <button style="float: left; margin-top: 2%" class="btn btn-sm btn-primary" type="submit">Cerca</button>
                      </form>
                     </div>
                 </div>
