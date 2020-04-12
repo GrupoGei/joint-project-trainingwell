@@ -37,8 +37,38 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.reservations'
+    'apps.reservations',
+    'bootstrap_datepicker_plus',
+    'bootstrap4',
+    'crispy_forms',
+    'tempus_dominus'
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
+
+DATE_FORMAT = "d-m-Y"
+
+GLOBAL_SETTINGS = {
+    'HOURS_AVAILABLE': [
+        (0, '9:00'),
+        (1, '10:00'),
+        (2, '11:00'),
+        (3, '12:00'),
+        (4, '13:00'),
+        (5, '14:00'),
+        (6, '15:00'),
+        (7, '16:00'),
+        (8, '17:00'),
+        (9, '18:00'),
+        (10, '19:00'),
+        (11, '20:00'),
+    ],
+    'CLOSURE_HOUR': (12, '21:00')
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,7 +149,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 

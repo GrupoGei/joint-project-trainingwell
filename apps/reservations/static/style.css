@@ -65,3 +65,38 @@
 
   }
 }
+
+.column-reservation{
+  float: left;
+  width: 50%;
+}
+
+.row-reservation:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.margin{
+  margin: 3%;
+}
+
+.container{
+  margin-top: 2%;
+}
+
+.description{
+  height: 100%;
+  text-align: justify;
+}
+
+.button-div{
+  margin-top: 6%;
+  margin-bottom: -4%;
+}
+
+.date-form{
+  margin-bottom: 4%;
+}
+
+
