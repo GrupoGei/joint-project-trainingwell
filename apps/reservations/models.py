@@ -20,13 +20,6 @@ class Installation(models.Model):
         return self.name
 
 
-class CurrentReservations(models.Model):
-    organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='current_reservations')
-
-    def __str__(self):
-        return 'Reserves de la sessió actual de ' + self.organizer.username + ' ' + self.organizer.username
-
-
 class Date(models.Model):
     day = models.DateField()
     start_hour = models.TimeField()
@@ -34,6 +27,13 @@ class Date(models.Model):
 
     def __str__(self):
         return "Dia " + str(self.day) + " hora " + str(self.start_hour) + '-' + str(self.end_hour)
+
+
+class CurrentReservations(models.Model):
+    organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='current_reservations')
+
+    def __str__(self):
+        return 'Reserves de la sessió actual de ' + self.organizer.username
 
 
 class Reservation(models.Model):
@@ -44,4 +44,7 @@ class Reservation(models.Model):
                                              related_name='reservations', null=True, blank=True)
 
     def __str__(self):
-        return "Reserva de " + self.organizer.username
+        return "Reserva del" + str(self.organizer.username) + "del dia" + str(self.date) + "al pavelló" + \
+               str(self.installation.name)
+
+

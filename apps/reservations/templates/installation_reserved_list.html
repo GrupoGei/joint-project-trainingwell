@@ -1,10 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Installation reserved List</title>
 </head>
-<body>
+<body class="body">
 
+   <div class="container">
+
+      <div class="row">
+          {% for reservation in installations_reserved %}
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                <image href="{% static 'media/'%}{{ reservation.installation.image }}" height="100%" width="100%"></image>
+                <image href="{% static 'media/'%}{{ reservation.installation.image }}" height="100%" width="100%"></image>
+                <image href="{% static 'media/'%}{{ reservation.installation.image }}" height="100%" width="100%"></image>
+                </svg>
+                <div class="card-body">
+                    <h4 style="font-weight: bold;"> {{ reservation.installation.name }}</h4>
+                  <p class="card-text">{{ reservation.date}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <p><a class="btn btn-sm btn-success" href="/reservations/{{ installation.pk }}" role="button">Reserva</a></p>
+                    </div>
+                    <small class="text-muted"> {{ reservation.organizer }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
 </body>
 </html>
+
+{% endblock %}
