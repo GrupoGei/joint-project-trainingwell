@@ -124,3 +124,10 @@ def change_date(request, pk_inst):
             curr_date = date_form.cleaned_data['date_field']
             curr_date_formatted = str(curr_date.day)+'-'+str(curr_date.month)+'-'+str(curr_date.year)
             return redirect('/reservations/'+str(pk_inst)+'/date/'+curr_date_formatted)
+
+
+def cancel_reserve(request, pk_reserve):
+    reserve_selected = Reservation.objects.get(pk=pk_reserve)
+    reserve_selected.delete()
+
+    return redirect('/show_installations_reserved/'+request.user.username)
