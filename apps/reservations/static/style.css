@@ -9,7 +9,6 @@
 }
 
 .header a {
-
   float: left;
   color: white;
   text-align: center;
@@ -22,16 +21,17 @@
 }
 
 .row{
-    text-align: center;
-    margin: auto;
+  text-align: center;
+  margin: auto;
 }
 
 @media (min-width: 768px){
-.col-md-4 {
-    -ms-flex: 0 0 33.333333%;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
-}}
+  .col-md-4 {
+      -ms-flex: 0 0 33.333333%;
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+  }
+}
 
 .body{
   background-color: mediumaquamarine;
@@ -97,6 +97,10 @@
 
 .date-form{
   margin-bottom: 4%;
+}
+
+.btn-cancel{
+  margin-bottom: -4%;
 }
 
 

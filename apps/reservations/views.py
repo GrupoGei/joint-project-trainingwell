@@ -9,6 +9,7 @@ from django.core.exceptions import PermissionDenied
 def show_installations(request):
     first_date = date.today() + timedelta(days=7)
     installations = Installation.objects.order_by('sports')
+
     context = {
         'installations': installations,
         'date': first_date,
@@ -17,10 +18,11 @@ def show_installations(request):
     return render(request, 'installation_list.html', context)
 
 
-def show_installations_reserved(request):
-    installations_reserved = Reservation.objects.filter(current_reservations__isnull=False)
+def show_installations_reserved(request, username):
+    user_reservations = Reservation.objects.filter(organizer=request.user)
+
     context = {
-        'installations_reserved': installations_reserved,
+        'user_reservations': user_reservations
     }
 
     return render(request, 'installation_reserved_list.html', context)
@@ -28,35 +30,38 @@ def show_installations_reserved(request):
 
 def reserve_day_hours(request, pk_inst, current_date):
     installation = Installation.objects.get(pk=pk_inst)
-    reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"))
+    date_reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"))
     range_hours_reserved = RangeHours.objects.none()
-    for reservation in reservations:
+
+    for reservation in date_reservations:
         range_hours_reserved |= RangeHours.objects.filter(reservation=reservation)
 
     hours_reserved = get_hours_reserved(range_hours_reserved)
     hours_available = get_hours_available(hours_reserved)
     total_hours = get_total_hours()
 
-    if request.method == 'POST':
-        form = RangeHoursForm(request.POST)
-        if form.is_valid():
-            form.save(True, request.user, current_date, hours_available, installation)
-            return redirect('index')
-    else:
-        form = RangeHoursForm()
-        date_form = DateForm()
-
     context = {
         'installation': installation,
         'date': current_date,
-        'reservations': reservations,
+        'date_reservations': date_reservations,
         'range_hours': range_hours_reserved,
         'total_hours': total_hours,
         'hours_available': hours_available,
         'hours_reserved': hours_reserved,
-        'form': form,
-        'date_form': date_form
     }
+
+    if request.method == 'POST':
+        form = RangeHoursForm(request.POST)
+        if form.is_valid():
+            form.save(True, request.user, current_date, hours_available, installation)
+
+            return redirect('/show_installations_reserved/'+request.user.username)
+    else:
+        form = RangeHoursForm()
+        date_form = DateForm()
+
+    context['form'] = form
+    context['date_form'] = date_form
 
     return render(request, 'reservation_page.html', context)
 

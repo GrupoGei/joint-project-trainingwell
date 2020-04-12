@@ -52,6 +52,7 @@ class Reservation(models.Model):
     installation = models.ForeignKey(Installation, on_delete=models.CASCADE, related_name='reservations')
     current_reservations = models.ForeignKey(CurrentReservations, on_delete=models.SET_NULL,
                                              related_name='reservations', null=True, blank=True)
+    in_shopping_cart = models.BooleanField(default=True)
 
     def __str__(self):
         return "Reserva de " + self.organizer.username + ", dia " + str(self.day)
