@@ -8,5 +8,6 @@ urlpatterns = [
     path('reservations/<int:pk_inst>/date/<str:current_date>', views.reserve_day_hours, name='reservations'),
     path('show_installations_reserved/<str:username>/checkout', views.checkout, name='checkout'),
     path('change_date/<int:pk_inst>', views.change_date, name='change_date'),
-    path('cancel_reserve/<int:pk_reserve>', views.delete_reserve, name='delete_reserve')
+    path('cancel_reserve/<int:pk_reserve>', views.delete_reserve, name='delete_reserve'),
+    path('show_installations/<str:sport>', views.filtered_installations, name='filtered_index'),
 ]

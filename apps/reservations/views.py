@@ -55,7 +55,7 @@ def reserve_day_hours(request, pk_inst, current_date):
         if form.is_valid():
             form.save(True, request.user, current_date, hours_available, installation)
 
-            return redirect('/show_installations_reserved/'+request.user.username)
+            return redirect('/show_installations_reserved/' + request.user.username)
     else:
         form = RangeHoursForm()
         date_form = DateForm()
@@ -79,7 +79,7 @@ def get_total_hours():
     res = [[total_hours[i], total_hours[i + 1]]
            for i in range(len(total_hours) - 1)]
 
-    res.append([total_hours[len(total_hours)-1], settings.GLOBAL_SETTINGS.get('CLOSURE_HOUR')[1]])
+    res.append([total_hours[len(total_hours) - 1], settings.GLOBAL_SETTINGS.get('CLOSURE_HOUR')[1]])
 
     return res
 
@@ -122,15 +122,15 @@ def change_date(request, pk_inst):
         date_form = DateForm(request.POST)
         if date_form.is_valid():
             curr_date = date_form.cleaned_data['date_field']
-            curr_date_formatted = str(curr_date.day)+'-'+str(curr_date.month)+'-'+str(curr_date.year)
-            return redirect('/reservations/'+str(pk_inst)+'/date/'+curr_date_formatted)
+            curr_date_formatted = str(curr_date.day) + '-' + str(curr_date.month) + '-' + str(curr_date.year)
+            return redirect('/reservations/' + str(pk_inst) + '/date/' + curr_date_formatted)
 
 
 def delete_reserve(request, pk_reserve):
     reserve_selected = Reservation.objects.get(pk=pk_reserve)
     reserve_selected.delete()
 
-    return redirect('/show_installations_reserved/'+request.user.username)
+    return redirect('/show_installations_reserved/' + request.user.username)
 
 
 def checkout(request, username):
@@ -149,3 +149,10 @@ def checkout(request, username):
     return render(request, 'checkout.html', context)
 
 
+def filtered_installations(request, sport):
+    installations = Installation.objects.filter(sports__name=sport)
+    context = {
+        'installations': installations,
+    }
+
+    return render(request, 'installation_list.html', context)

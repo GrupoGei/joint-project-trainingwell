@@ -10,11 +10,26 @@
     <title>Installation List</title>
 </head>
 <body class="body">
-        <p></p>
 
+    <div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-right" style="width:200px;right:0; background-color: darkslategray; color: white;" id="mySidebar">
+        <p style="padding: 15px; font-family: 'Arial'; font-size: large ">Flitra per esports:</p>
+        <a href="/Futbol" class="w3-bar-item w3-button"> Futbol</a>
+        <a href="/Tennis" class="w3-bar-item w3-button"> Tennis</a>
+        <a href="/Basquet" class="w3-bar-item w3-button"> Basquet</a>
+        <a href="/" class="w3-bar-item w3-button" style="font-size: large"> (Neteja el filtre)</a>
+    </div>
+
+  <script>
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+</script>
    <div class="container">
-
-      <div class="row">
+        {% if installations %}
+      <div class="row" style="padding-top: 60px">
           {% for installation in installations %}
 
         <div class="col-md-4">
@@ -35,6 +50,9 @@
           </div>
         </div>
           {% endfor %}
+            {% else %}
+        <h2 class="header2">NO HI HA CAP INSTAL·LACIÓ DISPONIBLE PEL MOMENT</h2>
+      {% endif %}
       </div>
     </div>
 </body>
