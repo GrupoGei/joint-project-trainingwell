@@ -1,47 +1,44 @@
 /*estils css*/
 
 .header {
-  padding: 2% ;
+  padding: 34px 10px ;
   text-align: left;
   background: #232323;
   color: white;
+  overflow: hidden;
 }
 
 .header a {
-
   float: left;
   color: white;
-  text-align: right;
+  text-align: center;
   text-decoration: none;
-  font-size: 250%;
-  line-height: 1%;
-  border-radius: 10%;
+  font-size: 23px;
+  line-height: 20px;
+  border-radius: 4px;
+  padding: 10px;
 
 }
 
 .row{
-    text-align: center;
-    margin: auto;
+  text-align: center;
+  margin: auto;
 }
 
 @media (min-width: 768px){
-.col-md-4 {
-    -ms-flex: 0 0 33.333333%;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
-}}
+  .col-md-4 {
+      -ms-flex: 0 0 33.333333%;
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+  }
+}
 
 .body{
   background-color: mediumaquamarine;
 }
 
-.header a:hover {
-  background-color: white;
-  color: wheat;
-}
-
 .header a.logo {
-  font-size: 250%;
+  font-size: 35px;
   font-weight: bold;
 }
 
@@ -60,6 +57,51 @@
   }
   .header-right {
     float: none;
-
   }
 }
+
+.column-reservation {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+.row-reservation:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 600px) {
+  .column-reservation {
+    width: 100%;
+  }
+}
+
+.container{
+  margin-top: 2%;
+}
+
+.description{
+  height: 100%;
+  text-align: justify;
+}
+
+.button-div{
+  margin-top: 6%;
+  margin-bottom: -4%;
+}
+
+.date-form{
+  margin-bottom: 4%;
+}
+
+.btn-cancel{
+  margin-bottom: -4%;
+}
+
+.date-indicator{
+  color: white;
+}
+
+
