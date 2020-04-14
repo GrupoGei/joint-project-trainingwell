@@ -9,8 +9,17 @@
     <meta charset="UTF-8">
     <title>Total de la reserva</title>
 </head>
-<body class="body">
-    <h1>Total ({{ num_reservations }}): {{ total_price }}€ (IVA inclòs)</h1>
+<body style="background-color: mediumaquamarine">
+
+    <main role="main" class="flex-shrink-0">
+      <div class="container">
+        <h1 class="mt-5">Estat de les reserves actuals</h1>
+        <p class="lead">Has realitzat un total de {{ num_reservations }} reserva.</p>
+          <p>Preu total: {{ total_price }}€ (IVA inclòs)</p>
+        <p>Vols finalitzar amb el procés de reserva ?</p>
+      </div>
+    </main>
+
 </body>
 </html>
 
