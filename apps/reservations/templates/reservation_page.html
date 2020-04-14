@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block page_content %}
 
@@ -13,10 +14,10 @@
     <meta charset="UTF-8">
     <title>Reservation page {{ installation.name }}</title>
 </head>
-<body>
-    <div class="row-reservation margin">
+<body class="body">
+    <div class="row-reservation" style="margin: 3%">
         <h1 style="text-align: center; margin-bottom: 2%">{{ installation.name }} -
-            <small class="text-muted">{{date}}</small></h1>
+            <small class="date-indicator">{{date}}</small></h1>
         <div class="column-reservation">
             <div class="container">
                 <div class="row">
