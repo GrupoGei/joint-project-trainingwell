@@ -1,9 +1,22 @@
 /*estils css*/
 
 .header {
+
   padding: 2% ;
   text-align: left;
   background: #232323;
+  color: white;
+  overflow: hidden;
+  background-color: #333;
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+
+}
+.header2 {
+
+  padding: 10%;
+  text-align: left;
+  align-content: center;
   color: white;
 }
 
@@ -16,6 +29,7 @@
   font-size: 250%;
   line-height: 1%;
   border-radius: 10%;
+
 
 }
 
