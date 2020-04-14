@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Total de la reserva</title>
+</head>
+<body class="body">
+    <h1>Total ({{ num_reservations }}): {{ total_price }}€ (IVA inclòs)</h1>
+</body>
+</html>
+
+{% endblock %}

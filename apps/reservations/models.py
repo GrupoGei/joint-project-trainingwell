@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.conf import settings
+from datetime import date, timedelta, datetime
 
 
 class Sport(models.Model):
@@ -17,6 +18,7 @@ class Installation(models.Model):
     image = models.ImageField(blank=True)
     capacity = models.IntegerField()
     sports = models.ManyToManyField(Sport, related_name='installations')
+    price_base = models.FloatField()
 
     def __str__(self):
         return self.name
@@ -44,6 +46,9 @@ class RangeHours(models.Model):
         else:
             super(RangeHours, self).save()
 
+    def get_time_reserved(self):
+        return self.end_hour-self.start_hour
+
 
 class Reservation(models.Model):
     day = models.DateField()
@@ -52,10 +57,14 @@ class Reservation(models.Model):
     installation = models.ForeignKey(Installation, on_delete=models.CASCADE, related_name='reservations')
     current_reservations = models.ForeignKey(CurrentReservations, on_delete=models.SET_NULL,
                                              related_name='reservations', null=True, blank=True)
+    price = models.FloatField(blank=True, null=True)
     in_shopping_cart = models.BooleanField(default=True)
 
     def __str__(self):
         return "Reserva de " + self.organizer.username + ", dia " + str(self.day)
+
+    def calculate_price(self):
+        self.price = self.range_hours.get_time_reserved() * self.installation.price_base
 
 
 def get_key(list, val):

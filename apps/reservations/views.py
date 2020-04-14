@@ -19,7 +19,7 @@ def show_installations(request):
 
 
 def show_installations_reserved(request, username):
-    user_reservations = Reservation.objects.filter(organizer=request.user)
+    user_reservations = Reservation.objects.filter(organizer=request.user, in_shopping_cart=True)
 
     context = {
         'user_reservations': user_reservations
@@ -126,8 +126,26 @@ def change_date(request, pk_inst):
             return redirect('/reservations/'+str(pk_inst)+'/date/'+curr_date_formatted)
 
 
-def cancel_reserve(request, pk_reserve):
+def delete_reserve(request, pk_reserve):
     reserve_selected = Reservation.objects.get(pk=pk_reserve)
     reserve_selected.delete()
 
     return redirect('/show_installations_reserved/'+request.user.username)
+
+
+def checkout(request, username):
+    session_reservations = Reservation.objects.filter(organizer=request.user, in_shopping_cart=True)
+    total_price = 0
+    for reservation in session_reservations:
+        total_price += reservation.price
+    total_price *= settings.GLOBAL_SETTINGS.get('IVA_TAX')
+
+    context = {
+        'total_price': total_price,
+        'username': username,
+        'num_reservations': len(session_reservations)
+    }
+
+    return render(request, 'checkout.html', context)
+
+

@@ -67,7 +67,8 @@ GLOBAL_SETTINGS = {
         (10, '19:00'),
         (11, '20:00'),
     ],
-    'CLOSURE_HOUR': (12, '21:00')
+    'CLOSURE_HOUR': (12, '21:00'),
+    'IVA_TAX': 1.21
 }
 
 MIDDLEWARE = [

@@ -35,6 +35,7 @@ class RangeHoursForm(forms.ModelForm):
             reservation = Reservation.objects.create(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"), range_hours=range_hours, organizer=current_user,
                                                      installation=installation)
 
+            reservation.calculate_price()
             reservation.save()
 
 
