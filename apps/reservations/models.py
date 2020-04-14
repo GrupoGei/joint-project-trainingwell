@@ -18,7 +18,7 @@ class Installation(models.Model):
     image = models.ImageField(blank=True)
     capacity = models.IntegerField()
     sports = models.ManyToManyField(Sport, related_name='installations')
-    price_base = models.FloatField()
+    price_base = models.FloatField(null=True)
 
     def __str__(self):
         return self.name
@@ -51,7 +51,7 @@ class RangeHours(models.Model):
 
 
 class Reservation(models.Model):
-    day = models.DateField()
+    day = models.DateField(null=True)
     range_hours = models.ForeignKey(RangeHours, on_delete=models.SET_NULL, null=True, related_name='reservation')
     organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservations')
     installation = models.ForeignKey(Installation, on_delete=models.CASCADE, related_name='reservations')

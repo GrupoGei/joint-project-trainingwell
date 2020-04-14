@@ -1,9 +1,5 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-<<<<<<< HEAD
-=======
-{% load static %}
->>>>>>> origin/dev
 
 {% block page_content %}
 
@@ -17,32 +13,18 @@
     <meta charset="UTF-8">
     <title>Reservation page {{ installation.name }}</title>
 </head>
-<<<<<<< HEAD
 <body>
     <div class="row-reservation margin">
         <h1 style="text-align: center; margin-bottom: 2%">{{ installation.name }} -
             <small class="text-muted">{{date}}</small></h1>
-=======
-<body class="body">
-    <div class="row-reservation" style="margin: 3%">
-        <h1 style="text-align: center; margin-bottom: 2%">{{ installation.name }} -
-            <small class="date-indicator">{{date}}</small></h1>
->>>>>>> origin/dev
         <div class="column-reservation">
             <div class="container">
                 <div class="row">
                     <div class="date-form">
-<<<<<<< HEAD
                     <form method="get">
                         {% csrf_token %}
                         {{ date_form }}
                         <input style="margin-top: 5%; margin-bottom: 0%;" class="btn btn-sm btn-primary" type="submit" value="Cerca">
-=======
-                    <form method="POST" action="{% url 'change_date' installation.pk %}">
-                        {% csrf_token %}
-                        {{ date_form }}
-                        <button style="float: left; margin-top: 2%" class="btn btn-sm btn-primary" type="submit">Cerca</button>
->>>>>>> origin/dev
                      </form>
                     </div>
                 </div>
@@ -66,13 +48,6 @@
                 <button class="btn btn-success" type="submit">Reserva</button>
             </form>
             <h3 style="margin-top: 5%">Les teves reserves fins ara:</h3>
-<<<<<<< HEAD
-=======
-            {% if current_reservations %}
-            {% else %}
-                <p>No tens cap reserva feta en aquesta sessió.</p>
-            {% endif %}
->>>>>>> origin/dev
         </div>
     </div>
 
