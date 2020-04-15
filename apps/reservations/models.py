@@ -24,13 +24,6 @@ class Installation(models.Model):
         return self.name
 
 
-class CurrentReservations(models.Model):
-    organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='current_reservations')
-
-    def __str__(self):
-        return 'Reserves de la sessió actual de ' + self.organizer.username + ' ' + self.organizer.username
-
-
 class RangeHours(models.Model):
 
     hours = settings.GLOBAL_SETTINGS.get('HOURS_AVAILABLE')
@@ -55,8 +48,6 @@ class Reservation(models.Model):
     range_hours = models.ForeignKey(RangeHours, on_delete=models.SET_NULL, null=True, related_name='reservation')
     organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservations')
     installation = models.ForeignKey(Installation, on_delete=models.CASCADE, related_name='reservations')
-    current_reservations = models.ForeignKey(CurrentReservations, on_delete=models.SET_NULL,
-                                             related_name='reservations', null=True, blank=True)
     price = models.FloatField(blank=True, null=True)
     in_shopping_cart = models.BooleanField(default=True)
 
