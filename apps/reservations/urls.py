@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from apps.reservations import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('show_installations/', views.show_installations, name='index'),
@@ -11,5 +12,6 @@ urlpatterns = [
     path('cancel_reserve/<int:pk_reserve>', views.delete_reserve, name='delete_reserve'),
     path('show_installations/<str:sport>', views.filtered_installations, name='filtered_index'),
     path('cancel_reserves_cart/<str:username>', views.cancel_reserves_cart, name='cancel_cart'),
-    path('formalize_reserves/<str:username>', views.formalize_reserves, name='formalize_reserves')
+    path('formalize_reserves/<str:username>', views.formalize_reserves, name='formalize_reserves'),
+    path('', auth_views.LoginView.as_view(template_name= 'login.html'), name='login')
 ]
