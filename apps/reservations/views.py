@@ -25,7 +25,8 @@ def show_installations_reserved(request, username):
     user_reservations = Reservation.objects.filter(organizer=request.user, in_shopping_cart=True)
 
     context = {
-        'user_reservations': user_reservations
+        'user_reservations': user_reservations,
+        'num_reservations': len(user_reservations)
     }
 
     return render(request, 'installation_reserved_list.html', context)
@@ -136,6 +137,29 @@ def delete_reserve(request, pk_reserve):
     return redirect('/show_installations_reserved/' + request.user.username)
 
 
+def cancel_reserves_cart(request, username):
+    user_reservations = Reservation.objects.filter(organizer=request.user, in_shopping_cart=True)
+
+    for reservation in user_reservations:
+        reservation.delete()
+
+    return redirect('/show_installations/')
+
+
+def formalize_reserves(request, username):
+    user_reservations = Reservation.objects.filter(organizer=request.user, in_shopping_cart=True)
+
+    for reservation in user_reservations:
+        reservation.take_out_from_cart()
+        reservation.save()
+
+    context = {
+        'username': username
+    }
+
+    return render(request, 'thanks_page.html', context)
+
+
 def checkout(request, username):
     session_reservations = Reservation.objects.filter(organizer=request.user, in_shopping_cart=True)
     total_price = 0
@@ -153,11 +177,17 @@ def checkout(request, username):
 
 
 def filtered_installations(request, sport):
+    first_date = date.today() + timedelta(days=7)
     installations = Installation.objects.filter(sports__name=sport)
     sports = Sport.objects.all()
     context = {
         'installations': installations,
+        'date': first_date,
         'sports': sports
     }
 
     return render(request, 'installation_list.html', context)
+
+
+
+

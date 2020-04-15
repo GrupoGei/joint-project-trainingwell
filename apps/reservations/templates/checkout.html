@@ -17,8 +17,15 @@
         <p class="lead">Has realitzat un total de {{ num_reservations }} reserva.</p>
           <p>Preu total: {{ total_price }}€ (IVA inclòs)</p>
         <p>Vols finalitzar amb el procés de reserva ?</p>
+          <div class="current-reserves-buttons">
+               <a style="margin-right: 2%" class="btn btn-sm btn-secondary" href="{% url 'index' %}" role="button">Continuar reservant</a>
+               <a style="margin-right: 2%" class="btn btn-sm btn-primary" href="{% url 'formalize_reserves' user.username %}" role="button">Acabar amb el procés de reserva</a>
+               <a style="text-decoration: underline; color: red" href="{% url 'cancel_cart' user.username %}" >Cancel·lar procés de reserva</a>
+          </div>
       </div>
     </main>
+
+
 
 </body>
 </html>

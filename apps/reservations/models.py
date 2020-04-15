@@ -57,6 +57,9 @@ class Reservation(models.Model):
     def calculate_price(self):
         self.price = self.range_hours.get_time_reserved() * self.installation.price_base
 
+    def take_out_from_cart(self):
+        self.in_shopping_cart = False
+
 
 def get_key(list, val):
     for item in list:

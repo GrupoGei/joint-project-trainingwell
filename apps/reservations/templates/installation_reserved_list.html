@@ -14,6 +14,7 @@
    <div class="container">
        <h1>Aquestes són les teves reserves fins ara:</h1>
        <div class="row">
+       {% if num_reservations != 0 %}
           {% for reservation in user_reservations %}
               {% if reservation.in_shopping_cart %}
                 <div class="col-md-4">
@@ -34,12 +35,14 @@
                 </div>
               {% endif %}
           {% endfor %}
+       {% else %}
+            <h2>No hi cap reserva feta en aquesta sessió</h2>
+       {% endif %}
        </div>
        <div class="current-reserves-buttons">
-           <a class="btn btn-sm btn-danger" href="{% url 'index' %}" role="button">Continuar reservant</a>
-           <a class="btn btn-sm btn-danger" href="{% url 'checkout' user.username %}" role="button">Finalitzar reserva</a>
-           <a class="btn btn-sm btn-danger" href="" >Cancel·lar procés de reserva</a>
-
+           <a style="margin-right: 2%" class="btn btn-sm btn-secondary" href="{% url 'index' %}" role="button">Continuar reservant</a>
+           <a style="margin-right: 2%" class="btn btn-sm btn-primary" href="{% url 'checkout' user.username %}" role="button">Finalitzar reserva</a>
+           <a style="text-decoration: underline; color: red" href="{% url 'cancel_cart' user.username %}" >Cancel·lar procés de reserva</a>
        </div>
     </div>
 </body>

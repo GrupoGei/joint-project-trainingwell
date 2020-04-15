@@ -10,4 +10,6 @@ urlpatterns = [
     path('change_date/<int:pk_inst>', views.change_date, name='change_date'),
     path('cancel_reserve/<int:pk_reserve>', views.delete_reserve, name='delete_reserve'),
     path('show_installations/<str:sport>', views.filtered_installations, name='filtered_index'),
+    path('cancel_reserves_cart/<str:username>', views.cancel_reserves_cart, name='cancel_cart'),
+    path('formalize_reserves/<str:username>', views.formalize_reserves, name='formalize_reserves')
 ]

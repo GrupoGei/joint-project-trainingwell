@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gràcies per la teva reserva</title>
+</head>
+<body style="background-color: mediumaquamarine">
+    <main role="main" class="flex-shrink-0">
+      <div class="container">
+        <h1 class="mt-5">Moltes gràcies per la teva reserva {{ username }}.</h1>
+        <p class="lead">Rebràs la factura pròximament.</p>
+          <div class="current-reserves-buttons">
+               <a style="margin-right: 2%" class="btn btn-sm btn-primary" href="{% url 'index' %}" role="button">Torna a les instal·lacions</a>
+          </div>
+      </div>
+    </main>
+</body>
+</html>
+{% endblock %}
