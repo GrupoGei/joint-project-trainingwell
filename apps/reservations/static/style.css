@@ -88,10 +88,6 @@
   }
 }
 
-.container{
-  margin-top: 2%;
-}
-
 .description{
   height: 100%;
   text-align: justify;
@@ -112,6 +108,35 @@
 
 .date-indicator{
   color: white;
+}
+
+.filter-installation {
+  overflow: hidden;
+  background-color: black;
+}
+
+
+.filter-installation a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+.filter-installation a.right {
+  float: right;
+}
+
+.title-filter a:hover{
+  background-color: black;
+  color: black;
+}
+
+.filter-installation a:hover {
+  background-color: #ddd;
+  color: black;
 }
 
 

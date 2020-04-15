@@ -1,3 +1,4 @@
+from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import *
@@ -9,10 +10,12 @@ from django.core.exceptions import PermissionDenied
 def show_installations(request):
     first_date = date.today() + timedelta(days=7)
     installations = Installation.objects.order_by('sports')
+    sports = Sport.objects.all()
 
     context = {
         'installations': installations,
         'date': first_date,
+        'sports': sports
     }
 
     return render(request, 'installation_list.html', context)
@@ -151,8 +154,10 @@ def checkout(request, username):
 
 def filtered_installations(request, sport):
     installations = Installation.objects.filter(sports__name=sport)
+    sports = Sport.objects.all()
     context = {
         'installations': installations,
+        'sports': sports
     }
 
     return render(request, 'installation_list.html', context)
