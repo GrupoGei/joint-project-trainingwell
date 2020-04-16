@@ -33,6 +33,10 @@ def show_installations_reserved(request, username):
 
 
 def reserve_day_hours(request, pk_inst, current_date):
+
+    if str(datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d")) < str((date.today() + timedelta(days=7))):
+        # TODO: ERROR PAGE
+        raise ValidationError("La reserva de dies només es pot fer amb una setmana d'antelació.")
     installation = Installation.objects.get(pk=pk_inst)
     date_reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"))
     range_hours_reserved = RangeHours.objects.none()
