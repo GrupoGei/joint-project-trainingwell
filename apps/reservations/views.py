@@ -32,6 +32,20 @@ def show_installations_reserved(request, username):
     return render(request, 'installation_reserved_list.html', context)
 
 
+def check_events(request):
+    first_date = date.today() + timedelta(days=7)
+    installations = Installation.objects.order_by('sports')
+    sports = Sport.objects.all()
+
+    context = {
+        'installations': installations,
+        'date': first_date,
+        'sports': sports
+    }
+
+    return render(request, 'check_events.html', context)
+
+
 def reserve_day_hours(request, pk_inst, current_date):
 
     if str(datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d")) < str((date.today() + timedelta(days=7))):
