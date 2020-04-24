@@ -1,4 +1,5 @@
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import *
@@ -7,6 +8,7 @@ from .forms import RangeHoursForm, DateForm
 from django.core.exceptions import PermissionDenied
 
 
+@login_required
 def show_installations(request):
     first_date = date.today() + timedelta(days=7)
     installations = Installation.objects.order_by('sports')
@@ -21,6 +23,7 @@ def show_installations(request):
     return render(request, 'installation_list.html', context)
 
 
+@login_required
 def show_installations_reserved(request, username):
     user_reservations = Reservation.objects.filter(organizer=request.user, in_shopping_cart=True)
 
@@ -32,13 +35,14 @@ def show_installations_reserved(request, username):
     return render(request, 'installation_reserved_list.html', context)
 
 
+@login_required
 def reserve_day_hours(request, pk_inst, current_date):
 
     if str(datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d")) < str((date.today() + timedelta(days=7))):
         # TODO: ERROR PAGE
         raise ValidationError("La reserva de dies només es pot fer amb una setmana d'antelació.")
     installation = Installation.objects.get(pk=pk_inst)
-    date_reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"))
+    date_reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"), installation=installation)
     range_hours_reserved = RangeHours.objects.none()
 
     for reservation in date_reservations:
@@ -125,6 +129,7 @@ def get_hours_reserved(range_hours_reserved):
     return hours_reserved
 
 
+@login_required
 def change_date(request, pk_inst):
     if request.method == 'POST':
         date_form = DateForm(request.POST)
@@ -134,6 +139,7 @@ def change_date(request, pk_inst):
             return redirect('/reservations/' + str(pk_inst) + '/date/' + curr_date_formatted)
 
 
+@login_required
 def delete_reserve(request, pk_reserve):
     reserve_selected = Reservation.objects.get(pk=pk_reserve)
     reserve_selected.delete()
@@ -141,6 +147,7 @@ def delete_reserve(request, pk_reserve):
     return redirect('/show_installations_reserved/' + request.user.username)
 
 
+@login_required
 def cancel_reserves_cart(request, username):
     user_reservations = Reservation.objects.filter(organizer=request.user, in_shopping_cart=True)
 
@@ -150,6 +157,7 @@ def cancel_reserves_cart(request, username):
     return redirect('/show_installations/')
 
 
+@login_required
 def formalize_reserves(request, username):
     user_reservations = Reservation.objects.filter(organizer=request.user, in_shopping_cart=True)
 
@@ -164,6 +172,7 @@ def formalize_reserves(request, username):
     return render(request, 'thanks_page.html', context)
 
 
+@login_required
 def checkout(request, username):
     session_reservations = Reservation.objects.filter(organizer=request.user, in_shopping_cart=True)
     total_price = 0
@@ -180,6 +189,7 @@ def checkout(request, username):
     return render(request, 'checkout.html', context)
 
 
+@login_required
 def filtered_installations(request, sport):
     first_date = date.today() + timedelta(days=7)
     installations = Installation.objects.filter(sports__name=sport)
