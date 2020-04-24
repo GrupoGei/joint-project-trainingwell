@@ -38,7 +38,7 @@ def reserve_day_hours(request, pk_inst, current_date):
         # TODO: ERROR PAGE
         raise ValidationError("La reserva de dies només es pot fer amb una setmana d'antelació.")
     installation = Installation.objects.get(pk=pk_inst)
-    date_reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"))
+    date_reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"), installation=installation)
     range_hours_reserved = RangeHours.objects.none()
 
     for reservation in date_reservations:
