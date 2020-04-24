@@ -4,10 +4,13 @@ from datetime import date, timedelta, datetime
 from django import forms
 from django.conf import settings
 from tempus_dominus.widgets import DatePicker, DateTimePicker
-
+from django.contrib.auth.forms import AuthenticationForm
 from .models import *
 from datetime import date
 
+class CustomAuthForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'validate','placeholder': 'Nom d\'usuari'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Contrasenya'}))
 
 class RangeHoursForm(forms.ModelForm):
     class Meta:

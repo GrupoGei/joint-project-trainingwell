@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.urls import path
 from apps.reservations import views
 from django.contrib.auth import views as auth_views
-
 urlpatterns = [
     path('show_installations/', views.show_installations, name='index'),
     path('show_installations_reserved/<str:username>', views.show_installations_reserved, name='installations_reserved'),
