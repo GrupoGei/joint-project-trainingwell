@@ -20,7 +20,9 @@
   <div class="form">
     <form class="login-form" method="post" action="{% url 'login' %}">
         {% csrf_token %}
+        <p style="text-align: left">Nom d'usuari</p>
       <td>{{ form.username }}</td>
+        <p style="text-align: left">Contrasenya</p>
       <td>{{ form.password }}</td>
       <button>login</button>
     </form>
