@@ -130,4 +130,3 @@ class DateForm(forms.Form):
     def clean_date_field(self):
         return self.cleaned_data['date_field']
 
-

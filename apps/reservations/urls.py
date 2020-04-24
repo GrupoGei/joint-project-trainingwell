@@ -11,10 +11,10 @@ urlpatterns = [
     path('change_date/<int:pk_inst>', views.change_date, name='change_date'),
     path('cancel_reserve/<int:pk_reserve>', views.delete_reserve, name='delete_reserve'),
     path('show_installations/<str:sport>', views.filtered_installations, name='filtered_index'),
-    path('', auth_views.LoginView.as_view(template_name= 'login.html'), name='login'),
     path('', auth_views.LoginView.as_view(template_name='login.html', authentication_form=CustomAuthForm),
          name='login'),
     path('cancel_reserves_cart/<str:username>', views.cancel_reserves_cart, name='cancel_cart'),
     path('formalize_reserves/<str:username>', views.formalize_reserves, name='formalize_reserves'),
+    path('login_success/', views.login_success, name='login_success')
 
 ]

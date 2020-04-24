@@ -126,7 +126,7 @@ USE_L10N = False
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGIN_REDIRECT_URL = 'login_success'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
