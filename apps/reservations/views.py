@@ -47,7 +47,6 @@ def check_events(request):
 
 
 def reserve_day_hours(request, pk_inst, current_date):
-
     if str(datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d")) < str((date.today() + timedelta(days=7))):
         # TODO: ERROR PAGE
         raise ValidationError("La reserva de dies només es pot fer amb una setmana d'antelació.")
@@ -207,5 +206,9 @@ def filtered_installations(request, sport):
     return render(request, 'installation_list.html', context)
 
 
+def add_installation(request):
+    context = {
 
+    }
 
+    return render(request, 'add_installation.html', context)

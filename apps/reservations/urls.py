@@ -15,5 +15,6 @@ urlpatterns = [
     path('formalize_reserves/<str:username>', views.formalize_reserves, name='formalize_reserves'),
     path('', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('check_events/', views.check_events, name='index'),
+    path('add_installation/', views.add_installation, name='add_installation'),
 
 ]
