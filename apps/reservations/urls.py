@@ -2,11 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from apps.reservations import views
 from django.contrib.auth import views as auth_views
-<<<<<<<<< Temporary merge branch 1
-
-=========
 from apps.reservations.forms import CustomAuthForm
->>>>>>>>> Temporary merge branch 2
+
 urlpatterns = [
     path('show_installations/', views.show_installations, name='index'),
     path('show_installations_reserved/<str:username>', views.show_installations_reserved, name='installations_reserved'),
@@ -15,10 +12,8 @@ urlpatterns = [
     path('change_date/<int:pk_inst>', views.change_date, name='change_date'),
     path('cancel_reserve/<int:pk_reserve>', views.delete_reserve, name='delete_reserve'),
     path('show_installations/<str:sport>', views.filtered_installations, name='filtered_index'),
-<<<<<<<<< Temporary merge branch 1
     path('cancel_reserves_cart/<str:username>', views.cancel_reserves_cart, name='cancel_cart'),
     path('formalize_reserves/<str:username>', views.formalize_reserves, name='formalize_reserves'),
-    path('login_success/', views.login_success, name='login_success')
-
+    path('login_success/', views.login_success, name='login_success'),
     path('', auth_views.LoginView.as_view(template_name= 'login.html', authentication_form=CustomAuthForm), name='login'),
 ]
