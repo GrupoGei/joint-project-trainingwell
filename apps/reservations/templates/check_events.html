@@ -10,13 +10,6 @@
     <title>Installation List</title>
 </head>
 <body class="body">
-    <div class="filter-installation">
-        <a style="color: aliceblue;">Filtra instal·lacions per: </a>
-        {% for sport in sports %}
-            <a href="{% url 'filtered_index' sport.name %}"> {{ sport.name }}</a>
-        {% endfor %}
-        <a href="{% url 'index' %}"> (Neteja el filtre)</a>
-    </div>
     <div class="column-installation">
        <div class="container">
             {% if installations %}
@@ -32,9 +25,8 @@
                           <p class="card-text">{{ installation.description }}</p>
                           <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group button-div">
-                                    <p><a class="btn btn-sm btn-success" href="/reservations/{{ installation.pk }}/date/{{ date }}" role="button">consultar</a></p>
+                                    <p><a class="btn btn-sm btn-success" href="/reservations/{{ installation.pk }}/date/{{ date }}" role="button">modificar</a></p>
                                 </div>
-                              <small class="text-muted" style="margin-top: 10%">Capacitat: {{ installation.capacity }}</small>
                           </div>
                         </div>
                       </div>
