@@ -212,10 +212,3 @@ def login_success(request):
         return redirect('/dashboard/') #Aqui anirà la url on volem que portin als admins
     else:
         return redirect('/show_installations/') #Aqui anirà la url on volem que portin als demès usuaris
-
-
-def dashboard(request):
-
-    context = {}
-
-    return render(request, 'dashboard.html', context)

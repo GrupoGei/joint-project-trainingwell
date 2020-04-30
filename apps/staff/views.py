@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def dashboard(request):
+
+    context = {}
+
+    return render(request, 'installation_list_responsible.html', context)
