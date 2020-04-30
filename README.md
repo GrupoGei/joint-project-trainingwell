@@ -12,4 +12,4 @@ and participants or observers, in order to satisfy their needs effectively.
 
 
 # Team Members
-Gerard Gonzalez, Pau Ibáñez, Mario Martí, Robert Munne, Jorge Nueno
+Gerard Gonzalez, Pau Ibáñez, Mario Martí, Robert Munne, Jorge Nueno, Marc Hidalgo
