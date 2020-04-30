@@ -209,7 +209,13 @@ def login_success(request):
     """
     if request.user.is_superuser:
         # user is an admin
-        return redirect('/show_installations_reserved/admin') #Aqui anirà la url on volem que portin als admins
+        return redirect('/dashboard/') #Aqui anirà la url on volem que portin als admins
     else:
         return redirect('/show_installations/') #Aqui anirà la url on volem que portin als demès usuaris
 
+
+def dashboard(request):
+
+    context = {}
+
+    return render(request, 'dashboard.html', context)
