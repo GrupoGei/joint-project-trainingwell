@@ -27,3 +27,13 @@ def dashboard_cancel_reserve(request, pk_reserve):
     reserve_selected.delete()
 
     return redirect('/dashboard/reserves')
+
+
+def dashboard_modify_installation(request, pk_inst):
+    installation = Installation.objects.get(pk=pk_inst)
+
+    context = {
+        'installation': installation
+    }
+
+    return render(request, 'modify_installation.html', context)

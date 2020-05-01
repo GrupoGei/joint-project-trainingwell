@@ -27,7 +27,7 @@
                           <p class="card-text">{{ installation.description }}</p>
                           <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group button-div">
-                                    <p><a class="btn btn-sm btn-success" href="/reservations/{{ installation.pk }}/date/{{ date }}" role="button">Modifica</a></p>
+                                    <p><a class="btn btn-sm btn-success" href="{% url 'dashboard-modify-installation' installation.pk %}" role="button">Modifica</a></p>
                                 </div>
                               <small class="text-muted" style="margin-top: 10%">Capacitat: {{ installation.capacity }}</small>
                           </div>
