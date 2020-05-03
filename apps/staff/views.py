@@ -30,6 +30,22 @@ def dashboard_cancel_reserve(request, pk_reserve):
     return redirect('/dashboard/reserves')
 
 
+def dashboard_create_installation(request):
+    if request.method == 'POST':
+        installation_form = InstallationForm(request.POST, request.FILES)
+        if installation_form.is_valid():
+            installation_form.save()
+            return redirect('/dashboard/installations')
+    else:
+        installation_form = InstallationForm()
+
+    context = {
+        'form': installation_form
+    }
+
+    return render(request, 'create_installation.html', context)
+
+
 def dashboard_modify_installation(request, pk_inst):
     installation = Installation.objects.get(pk=pk_inst)
 

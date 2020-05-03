@@ -7,4 +7,5 @@ urlpatterns = [
     path('reserves/delete/<int:pk_reserve>', views.dashboard_cancel_reserve, name='dashboard-cancel-reserve'),
     path('installations/<int:pk_inst>', views.dashboard_modify_installation, name='dashboard-modify-installation'),
     path('installations/delete/<int:pk_inst>', views.dashboard_delete_installation, name='dashboard-delete-installation'),
+    path('installations/create', views.dashboard_create_installation, name='dashboard-create-installation')
 ]
