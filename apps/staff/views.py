@@ -47,3 +47,10 @@ def dashboard_modify_installation(request, pk_inst):
     }
 
     return render(request, 'modify_installation.html', context)
+
+
+def dashboard_delete_installation(request, pk_inst):
+    installation_selected = Installation.objects.get(pk=pk_inst)
+    installation_selected.delete()
+
+    return redirect('/dashboard/installations')

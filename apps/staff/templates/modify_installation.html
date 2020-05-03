@@ -12,7 +12,7 @@
 <body>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
       <h1 class="h2">{{ installation.name }}</h1>
-        <button type="button" class="btn btn-danger">Elimina aquesta instal·lació</button>
+        <a class="btn btn-danger" href="{% url 'dashboard-delete-installation' installation.pk %}" role="button">Elimina aquesta instal·lació</a>
     </div>
     <div class="container">
       <div class="row">
