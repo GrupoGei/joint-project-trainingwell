@@ -17,7 +17,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <button style="float: left" class="btn btn-sm btn-primary" type="submit">Desa els canvis</button>

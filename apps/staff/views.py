@@ -34,7 +34,7 @@ def dashboard_modify_installation(request, pk_inst):
     installation = Installation.objects.get(pk=pk_inst)
 
     if request.method == 'POST':
-        installation_form = InstallationForm(request.POST, instance=installation)
+        installation_form = InstallationForm(request.POST, request.FILES, instance=installation)
         if installation_form.is_valid():
             installation_form.save()
             return redirect('/dashboard/installations')
