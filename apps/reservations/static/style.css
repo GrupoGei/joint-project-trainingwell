@@ -265,4 +265,20 @@
   text-decoration: none;
 }
 
+.cancel-staff-button{
+  float: left;
+  margin-left: 2%;
+  margin-top: 0.5%;
+  font-size: smaller;
+  color: red;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+.cancel-staff-button:hover{
+  color: red;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
 
