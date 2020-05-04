@@ -14,6 +14,14 @@
       <h1 class="h2">Gestionar instal·lacions</h1>
         <a role="button" class="btn btn-warning" href="{% url 'dashboard-create-installation' %}">Crear instal·lació</a>
     </div>
+    <div class="filter-installation">
+        <a style="color: aliceblue;">Filtra instal·lacions per: </a>
+        {% for sport in sports %}
+            <a href="{% url 'dashboard-filtered-installations' sport.name %}"> {{ sport.name }}</a>
+        {% endfor %}
+        <a href="{% url 'dashboard-installations' %}"> (Neteja el filtre)</a>
+    </div>
+    <div style="margin-top: 2%" class="container">
     {% if installations %}
               <div class="row">
                   {% for installation in installations %}
@@ -35,10 +43,11 @@
                       </div>
                     </div>
                   {% endfor %}
-            {% else %}
-                <h2 class="header2">No hi ha cap instal·lació disponible en aquest moment.</h2>
-            {% endif %}
-          </div>
+    {% else %}
+        <h2 class="header2">No hi ha cap instal·lació disponible en aquest moment.</h2>
+    {% endif %}
+                </div>
+    </div>
 </body>
 </html>
 

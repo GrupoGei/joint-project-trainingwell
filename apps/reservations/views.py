@@ -194,6 +194,7 @@ def filtered_installations(request, sport):
     first_date = date.today() + timedelta(days=7)
     installations = Installation.objects.filter(sports__name=sport)
     sports = Sport.objects.all()
+
     context = {
         'installations': installations,
         'date': first_date,

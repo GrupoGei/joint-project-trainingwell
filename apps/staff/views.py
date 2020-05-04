@@ -5,9 +5,22 @@ from apps.staff.forms import InstallationForm
 
 def dashboard_installations(request):
     installations = Installation.objects.all()
+    sports = Sport.objects.all()
 
     context = {
-        'installations': installations
+        'installations': installations,
+        'sports': sports
+    }
+
+    return render(request, 'installation_list_staff.html', context)
+
+
+def dashboard_filtered_installations(request, sport):
+    installations = Installation.objects.filter(sports__name=sport)
+    sports = Sport.objects.all()
+    context = {
+        'installations': installations,
+        'sports': sports
     }
 
     return render(request, 'installation_list_staff.html', context)
