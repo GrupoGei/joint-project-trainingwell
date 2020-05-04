@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block page_content %}
+
+<!DOCTYPE html>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg {
+  /* The image used */
+  background-image: url("{% static 'media/11Setembre.jpg' %}");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.minh-100 {
+  height: 100vh;
+}
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+</style>
+
+<body class="text-center"  >
+<div class="bg">
+      <div class="row justify-content-center align-items-center minh-100">
+            <main role="main" class="inner cover">
+                <h1 class="cover-heading text-white">Descripció</h1>
+                <p class="lead text-white bg-dark">Aquí expliquem una mica de que va la nostra aplicació</p>
+                <p class="lead">
+                  <a href="#" class="btn btn-lg btn-secondary">sign up</a>
+                </p>
+            </main>
+      </div>
+</div>
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Home</title>#}
+{#</head>#}
+{##}
+{#<body>#}
+{#    <div class="container">#}
+{#      <div class="row">#}
+{#        <div class="row">#}
+{#            <img class="mw-100" src="{% static 'media/11Setembre.jpg' %}" alt="Max-width 100%">#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <img class="mw-100" src="media/11Setembre.jpg" alt="Max-width 100%">#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{#</body>#}
+{#</html>#}
+
+{% endblock %}

@@ -37,12 +37,12 @@ def show_installations_reserved(request, username):
 
 @login_required
 def reserve_day_hours(request, pk_inst, current_date):
-
     if str(datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d")) < str((date.today() + timedelta(days=7))):
         # TODO: ERROR PAGE
         raise ValidationError("La reserva de dies només es pot fer amb una setmana d'antelació.")
     installation = Installation.objects.get(pk=pk_inst)
-    date_reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"), installation=installation)
+    date_reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"),
+                                                   installation=installation)
     range_hours_reserved = RangeHours.objects.none()
 
     for reservation in date_reservations:
@@ -129,6 +129,10 @@ def get_hours_reserved(range_hours_reserved):
     return hours_reserved
 
 
+def presentation_page(request):
+    return render(request, 'presentation_page.html')
+
+
 @login_required
 def change_date(request, pk_inst):
     if request.method == 'POST':
@@ -210,6 +214,6 @@ def login_success(request):
     """
     if request.user.is_superuser:
         # user is an admin
-        return redirect('/dashboard/installations') #Aqui anirà la url on volem que portin als admins
+        return redirect('/dashboard/installations')  # Aqui anirà la url on volem que portin als admins
     else:
-        return redirect('/show_installations/') #Aqui anirà la url on volem que portin als demès usuaris
+        return redirect('/show_installations/')  # Aqui anirà la url on volem que portin als demès usuaris
