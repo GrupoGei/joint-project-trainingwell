@@ -1,0 +1,62 @@
+{% extends "dashboard.html" %}
+{% load static %}
+
+{% block dashboard_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionar preus</title>
+</head>
+<body>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+      <h1 class="h2">Gestionar preus de les instal·lacions</h1>
+    </div>
+    <div class="filter-installation">
+        <a style="color: aliceblue;">Filtra instal·lacions per: </a>
+        {% for sport in sports %}
+            <a href="{% url 'dashboard-filtered-installations-prices' sport.name %}"> {{ sport.name }}</a>
+        {% endfor %}
+        <a href="{% url 'dashboard-manage-prices' %}"> (Neteja el filtre)</a>
+    </div>
+    <div style="margin-top: 2%" class="container">
+    {% if installations %}
+              <div class="row">
+                  {% for installation in installations %}
+                    <div class="col-md-4">
+                      <div class="card mb-4 shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                            <image href="{% static 'media/'%}{{ installation.image }}" height="100%" width="100%"></image>
+                        </svg>
+                        <div class="card-body">
+                            <p style="font-family: 'Arial Black'"> {{ installation.name }}</p>
+                          <p class="card-text">{{ installation.description }}</p>
+                            {% if installation.price_base is None %}
+                                <p>No hi ha preu assignat.</p>
+                            {% else %}
+                                <p>{{ installation.price_base }} €/h</p>
+                            {% endif %}
+                            {% if installation.discount is None %}
+                                <p>No hi ha cap descompte assignat.</p>
+                            {% else %}
+                                <p>{{ installation.discount }} % de descompte</p>
+                            {% endif %}
+                          <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group button-div">
+                                    <p><a class="btn btn-sm btn-success" href="{% url 'dashboard-installation-price' installation.pk %}" role="button">Modifica preu</a></p>
+                                </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+    {% else %}
+        <h2 class="header2">No hi ha cap instal·lació disponible en aquest moment.</h2>
+    {% endif %}
+                </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

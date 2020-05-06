@@ -20,3 +20,15 @@ class InstallationForm(forms.ModelForm):
             "sports": "Esports"
         }
 
+
+class PriceForm(forms.ModelForm):
+    class Meta:
+        model = Installation
+        fields = (
+            'price_base',
+            'discount'
+        )
+        labels = {
+            'price_base': "Preu per hora",
+            'discount': "Descompte",
+        }

@@ -19,6 +19,7 @@ class Installation(models.Model):
     capacity = models.IntegerField()
     sports = models.ManyToManyField(Sport, related_name='installations')
     price_base = models.FloatField(blank=True, null=True)
+    discount = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.name

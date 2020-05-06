@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from apps.reservations.models import *
-from apps.staff.forms import InstallationForm
+from apps.staff.forms import InstallationForm, PriceForm
 
 
 def dashboard_installations(request):
@@ -12,7 +12,7 @@ def dashboard_installations(request):
         'sports': sports
     }
 
-    return render(request, 'installation_list_staff.html', context)
+    return render(request, 'installation_list_staff-resp.html', context)
 
 
 def dashboard_filtered_installations(request, sport):
@@ -23,7 +23,7 @@ def dashboard_filtered_installations(request, sport):
         'sports': sports
     }
 
-    return render(request, 'installation_list_staff.html', context)
+    return render(request, 'installation_list_staff-resp.html', context)
 
 
 def dashboard_reserves(request):
@@ -99,3 +99,51 @@ def dashboard_filtered_organizers(request, username):
     }
 
     return render(request, 'reserves_list_staff.html', context)
+
+
+def dashboard_reports(request):
+    context = {}
+
+    return render(request, 'reports.html', context)
+
+
+def dashboard_manage_prices(request):
+    installations = Installation.objects.all()
+    sports = Sport.objects.all()
+
+    context = {
+        'installations': installations,
+        'sports': sports
+    }
+
+    return render(request, 'installation_list_staff-manag.html', context)
+
+
+def dashboard_filtered_installations_prices(request, sport):
+    installations = Installation.objects.filter(sports__name=sport)
+    sports = Sport.objects.all()
+    context = {
+        'installations': installations,
+        'sports': sports
+    }
+
+    return render(request, 'installation_list_staff-manag.html', context)
+
+
+def dashboard_modify_price(request, pk_inst):
+    installation = Installation.objects.get(pk=pk_inst)
+
+    if request.method == 'POST':
+        price_form = PriceForm(request.POST, instance=installation)
+        if price_form.is_valid():
+            price_form.save()
+            return redirect('/dashboard/prices')
+    else:
+        price_form = PriceForm(instance=installation)
+
+    context = {
+        'installation': installation,
+        'form': price_form
+    }
+
+    return render(request, 'modify_price.html', context)

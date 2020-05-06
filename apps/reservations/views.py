@@ -208,8 +208,9 @@ def login_success(request):
     """
     Redirects users based on whether they are in the admins group
     """
-    if request.user.is_superuser:
-        # user is an admin
-        return redirect('/dashboard/installations') #Aqui anirà la url on volem que portin als admins
+    if request.user.groups.filter(name='Responsible').exists():
+        return redirect('/dashboard/installations')
+    elif request.user.groups.filter(name='Manager').exists():
+        return redirect('/dashboard/report')
     else:
-        return redirect('/show_installations/') #Aqui anirà la url on volem que portin als demès usuaris
+        return redirect('/show_installations/')
