@@ -27,10 +27,16 @@ def dashboard_filtered_installations(request, sport):
 
 
 def dashboard_reserves(request):
-    reserves = Reservation.objects.all()
+    if 'organizer' in request.GET:
+        if request.GET['organizer'] != '':
+            reserves = Reservation.objects.filter(organizer__username=request.GET['organizer'])
+        else:
+            reserves = Reservation.objects.all()
+    else:
+        reserves = Reservation.objects.all()
 
     context = {
-        'reserves': reserves
+       'reserves': reserves,
     }
 
     return render(request, 'reserves_list_staff.html', context)
@@ -83,3 +89,13 @@ def dashboard_delete_installation(request, pk_inst):
     installation_selected.delete()
 
     return redirect('/dashboard/installations')
+
+
+def dashboard_filtered_organizers(request, username):
+    reserves = Reservation.objects.filter(organizer__username=username)
+
+    context = {
+        'reserves': reserves
+    }
+
+    return render(request, 'reserves_list_staff.html', context)

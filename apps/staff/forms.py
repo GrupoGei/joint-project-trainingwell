@@ -1,5 +1,5 @@
 from django import forms
-from apps.reservations.models import Installation
+from apps.reservations.models import Installation, Reservation
 
 
 class InstallationForm(forms.ModelForm):
@@ -19,3 +19,4 @@ class InstallationForm(forms.ModelForm):
             "capacity": "Capacitat",
             "sports": "Esports"
         }
+

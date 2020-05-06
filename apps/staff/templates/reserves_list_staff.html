@@ -12,7 +12,10 @@
 <body>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
       <h1 class="h2">Gestionar reserves</h1>
-        <button type="button" class="btn btn-warning">Crear instal·lació</button>
+        <form type="get" action="." style="margin: 0">
+            <input  id="search_box" type="text" name="organizer"  placeholder="Nom usuari" >
+            <button style="margin-bottom: 2%" class="btn btn-sm btn-primary" id="search_submit" type="submit" >Filtra</button>
+        </form>
     </div>
     {% if reserves %}
               <div class="row">
