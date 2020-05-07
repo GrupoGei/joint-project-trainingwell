@@ -1,5 +1,5 @@
 from django import forms
-from apps.reservations.models import Installation, Reservation
+from apps.reservations.models import Installation, Sport
 
 
 class InstallationForm(forms.ModelForm):
@@ -31,4 +31,15 @@ class PriceForm(forms.ModelForm):
         labels = {
             'price_base': "Preu per hora",
             'discount': "Descompte",
+        }
+
+
+class SportForm(forms.ModelForm):
+    class Meta:
+        model = Sport
+        fields = (
+            'name',
+        )
+        labels = {
+            'name': "Nom de l'esport",
         }

@@ -7,11 +7,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ installation.name }}</title>
+    <title>Crea esport</title>
 </head>
 <body>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-      <h1 class="h2">{{ installation.name }}</h1>
+      <h1 class="h2">Crea un nou esport</h1>
     </div>
     <div class="container">
       <div class="row">
@@ -19,8 +19,8 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button style="float: left" class="btn btn-sm btn-primary" type="submit">Desa els canvis</button>
-                <a class="cancel-staff-button" href="{% url 'dashboard-manage-prices' %}">Cancel·la els canvis</a>
+                <button style="float: left" class="btn btn-sm btn-primary" type="submit">Crea esport</button>
+                <a class="cancel-staff-button" href="{% url 'dashboard-installations' %}">Cancel·la i torna enrere</a>
             </form>
         </div>
       </div>

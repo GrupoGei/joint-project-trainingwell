@@ -24,7 +24,9 @@
     <div class ="header">
         <a class="logo">TRAININGWELL</a>
         <div class="header-right">
-            <a>Hola, {{  user}}</a>
+            {% if user.is_authenticated %}
+                <a>Hola, {{  user}}</a>
+            {% endif %}
         </div>
     </div>
 

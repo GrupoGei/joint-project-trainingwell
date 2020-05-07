@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from apps.reservations.models import *
-from apps.staff.forms import InstallationForm, PriceForm
+from apps.staff.forms import InstallationForm, PriceForm, SportForm
 
 
 def dashboard_installations(request):
@@ -147,3 +147,19 @@ def dashboard_modify_price(request, pk_inst):
     }
 
     return render(request, 'modify_price.html', context)
+
+
+def dashboard_create_sport(request):
+    if request.method == 'POST':
+        sport_form = SportForm(request.POST)
+        if sport_form.is_valid():
+            sport_form.save()
+            return redirect('/dashboard/installations')
+    else:
+        sport_form = SportForm()
+
+    context = {
+        'form': sport_form,
+    }
+
+    return render(request, 'create_sport.html', context)

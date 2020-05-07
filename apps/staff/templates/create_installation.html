@@ -19,8 +19,13 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button style="float: left" class="btn btn-sm btn-primary" type="submit">Crea instal·lació</button>
-                <a class="cancel-staff-button" href="{% url 'dashboard-installations' %}">Cancel·la i torna enrere</a>
+                <div style="margin-bottom: 2%" class="row">
+                    <a style="margin-left: 1.4%" class="btn btn-sm btn-warning" href="{% url 'dashboard-create-sport' %}">Afegir nou esport</a>
+                </div>
+                <div style="margin-bottom: 7%">
+                    <button style="float: left" class="btn btn-sm btn-primary" type="submit">Crea instal·lació</button>
+                    <a class="cancel-staff-button" href="{% url 'dashboard-installations' %}">Cancel·la els canvis</a>
+                </div>
             </form>
         </div>
       </div>
