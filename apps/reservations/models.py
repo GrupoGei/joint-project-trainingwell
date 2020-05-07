@@ -57,6 +57,8 @@ class Reservation(models.Model):
 
     def calculate_price(self):
         self.price = self.range_hours.get_time_reserved() * self.installation.price_base
+        if self.installation.discount is not None:
+            self.price = self.price * (1-(self.installation.discount/100))
 
     def take_out_from_cart(self):
         self.in_shopping_cart = False

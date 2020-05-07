@@ -24,7 +24,10 @@
                     </svg>
                     <div class="card-body">
                         <h4 style="font-weight: bold;"> {{ reservation.installation.name }}</h4>
-                      <p class="card-text">Dia {{ reservation.day }}<br>{{ reservation.range_hours }}<br>Preu: {{ reservation.price }}€</p>
+                      <p class="card-text">Dia {{ reservation.day }}<br>{{ reservation.range_hours }}<br>Preu: {{ reservation.price|floatformat:2 }}€</p>
+                        {% if reservation.installation.discount != None %}
+                            <p style="color: goldenrod" class="card-text">Descompte del {{ reservation.installation.discount }}% aplicat</p>
+                        {% endif %}
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-cancel">
                             <p><a class="btn btn-sm btn-danger" href="{% url 'delete_reserve' reservation.pk %}" role="button">Elimina reserva</a></p>

@@ -15,7 +15,7 @@
       <div class="container">
         <h1 class="mt-5">Estat de les reserves actuals</h1>
         <p class="lead">Has realitzat un total de {{ num_reservations }} reserva.</p>
-          <p>Preu total: {{ total_price }}€ (IVA inclòs)</p>
+          <p>Preu total: {{ total_price|floatformat:2 }}€ (IVA inclòs)</p>
         <p>Vols finalitzar amb el procés de reserva ?</p>
           <div class="current-reserves-buttons">
                <a style="margin-right: 2%" class="btn btn-sm btn-secondary" href="{% url 'index' %}" role="button">Continuar reservant</a>

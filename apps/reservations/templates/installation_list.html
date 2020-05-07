@@ -31,6 +31,9 @@
                             <div class="card-body">
                                 <p style="font-family: 'Arial Black'"> {{ installation.name }}</p>
                               <p class="card-text">{{ installation.description }}</p>
+                                {% if installation.discount != none %}
+                                <p style="color: goldenrod" class="card-text">DESCOMPTE: {{ installation.discount }}%</p>
+                                {% endif %}
                               <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group button-div">
                                         <p><a class="btn btn-sm btn-success" href="/reservations/{{ installation.pk }}/date/{{ date }}" role="button">Reserva</a></p>
