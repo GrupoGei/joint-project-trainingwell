@@ -47,7 +47,7 @@ MANIFEST
 
 # Database
 migrations
-#db.sqlite3
+
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -185,4 +185,4 @@ pip-selfcheck.json
 
 # End of https://www.gitignore.io/api/venv,django,python
 #*.sqlite3
-db.sqlite3
+
