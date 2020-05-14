@@ -20,7 +20,6 @@
                 {% csrf_token %}
                 {{ form|crispy }}
                 <button style="float: left" class="btn btn-sm btn-primary" type="submit">Crea instal·lació</button>
-                <a class="cancel-staff-button" href="{% url 'dashboard-installations' %}">Cancel·la i torna enrere</a>
             </form>
         </div>
       </div>

@@ -208,6 +208,7 @@ def filtered_installations(request, sport):
     return render(request, 'installation_list.html', context)
 
 
+
 def login_success(request):
     """
     Redirects users based on whether they are in the admins group
