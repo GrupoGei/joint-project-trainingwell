@@ -10,13 +10,11 @@ from django.core.exceptions import PermissionDenied
 
 @login_required
 def show_installations(request):
-    first_date = date.today() + timedelta(days=7)
     installations = Installation.objects.order_by('sports')
     sports = Sport.objects.all()
 
     context = {
         'installations': installations,
-        'date': first_date,
         'sports': sports
     }
 
@@ -36,7 +34,7 @@ def show_installations_reserved(request, username):
 
 
 @login_required
-def reserve_day_hours(request, pk_inst, current_date):
+def reserve_day_hours(request, pk_inst, current_date, pk_event):
 
     if str(datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d")) < str((date.today() + timedelta(days=7))):
         # TODO: ERROR PAGE
@@ -65,7 +63,7 @@ def reserve_day_hours(request, pk_inst, current_date):
     if request.method == 'POST':
         form = RangeHoursForm(request.POST)
         if form.is_valid():
-            form.save(True, request.user, current_date, hours_available, installation)
+            form.save(True, request.user, current_date, hours_available, installation, pk_event)
 
             return redirect('/show_installations_reserved/' + request.user.username)
     else:
@@ -228,21 +226,21 @@ def show_reserves(request, username):
 
 
 @login_required
-def create_event(request, pk_reserve):
-    reserve = Reservation.objects.get(pk=pk_reserve)
+def create_event(request, pk_inst):
+    first_date = date.today() + timedelta(days=7)
+    installation = Installation.objects.get(pk=pk_inst)
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
-            event = form.save(commit=False)
-            event.reservation = reserve
-            event.save()
-            return redirect('/show_reserves')
+            event = form.save()
+            return redirect('/reservations/'+str(pk_inst)+'/date/'+str(first_date)+'/event/'+str(event.pk))
     else:
         form = EventForm()
 
     context = {
-        'form': form
+        'form': form,
+        'installation_name': installation.name
     }
 
-    return render(request, create_event, context)
+    return render(request, 'create_event.html', context)
 

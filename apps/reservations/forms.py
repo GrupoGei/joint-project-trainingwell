@@ -19,7 +19,7 @@ class RangeHoursForm(forms.ModelForm):
             "end_hour": "Hora de finalització"
         }
 
-    def save(self, commit, current_user, current_date, hours_available, installation):
+    def save(self, commit, current_user, current_date, hours_available, installation, pk_event):
         hours = settings.GLOBAL_SETTINGS.get('HOURS_AVAILABLE')
         range_hours = super(RangeHoursForm, self).save(commit=False)
         if range_hours.start_hour >= range_hours.end_hour:
@@ -30,8 +30,9 @@ class RangeHoursForm(forms.ModelForm):
             raise forms.ValidationError("Rang d'hores no disponible, hi ha col·lisió d'hores.")
         else:
             super(RangeHoursForm, self).save()
+            event = Event.objects.get(pk=pk_event)
             reservation = Reservation.objects.create(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"), range_hours=range_hours, organizer=current_user,
-                                                     installation=installation)
+                                                     installation=installation, event=event)
 
             reservation.calculate_price()
             reservation.save()
@@ -126,7 +127,7 @@ class DateForm(forms.Form):
         return self.cleaned_data['date_field']
 
 
-class EventForm(forms.Form):
+class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = (

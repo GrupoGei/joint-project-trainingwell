@@ -44,6 +44,11 @@ class RangeHours(models.Model):
         return self.end_hour-self.start_hour
 
 
+class Event(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(max_length=300)
+
+
 class Reservation(models.Model):
     day = models.DateField()
     range_hours = models.ForeignKey(RangeHours, on_delete=models.SET_NULL, null=True, related_name='reservation')
@@ -51,6 +56,7 @@ class Reservation(models.Model):
     installation = models.ForeignKey(Installation, on_delete=models.CASCADE, related_name='reservations')
     price = models.FloatField(blank=True, null=True)
     in_shopping_cart = models.BooleanField(default=True)
+    event = models.OneToOneField(Event, on_delete=models.CASCADE, related_name='reservation', blank=True, null=True)
 
     def __str__(self):
         return "Reserva de " + self.organizer.username + ", dia " + str(self.day)
@@ -62,12 +68,6 @@ class Reservation(models.Model):
 
     def take_out_from_cart(self):
         self.in_shopping_cart = False
-
-
-class Event(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField(max_length=300)
-    reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE, related_name='event')
 
 
 class Team(models.Model):
