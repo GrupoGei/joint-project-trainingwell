@@ -15,27 +15,6 @@ body, html {
   margin: 0;
 }
 
-.bg {
-  /* The image used */
-  background-image: url("{% static 'media/11Setembre.jpg' %}");
-
-  /* Full height */
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.minh-100 {
-  height: 100vh;
-}
-.lead {
-  font-size: 1.25rem;
-  font-weight: 300;
-}
-
 </style>
 
 <body class="text-center"  >
@@ -48,13 +27,15 @@ body, html {
         <div class="carousel-inner">
           <div class="carousel-item active">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                <image href="{% static 'media/pista_basquet.jpg'%}" height="100%" width="100%"></image>
+                <image href="{% static 'media/PIGALLE-BASKETBALL-2017-34.jpg'%}" height="100%" width="100%"></image>
             </svg>
             <div class="container">
               <div class="carousel-caption">
                 <h1>prova1</h1>
-                <p>Descripció</p>
+                <p>encara no estàs registrat? Registra't aquí</p>
                 <p><a class="btn btn-lg btn-primary"  role="button">Sign up today</a></p>
+                <p>inicia sessió</p>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'login' %}" role="button">Sign in</a></p>
               </div>
             </div>
           </div>
@@ -62,13 +43,13 @@ body, html {
           <div class="carousel-item">
 {#            <image href="{% static 'media/'%}{{ installation.image }}" height="100%" width="100%"></image>#}
             <svg class="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                <image href="{% static 'media/11Setembre.jpg'%}" height="100%" width="100%"></image>
+                <image href="{% static 'media/11setembre.jpg'%}" height="100%" width="100%"></image>
             </svg>
             <div class="container">
               <div class="carousel-caption">
                 <h1>prova</h1>
 {#                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>#}
-                <p><a class="btn btn-lg btn-primary"  role="button">Planificació actual</a></p>
+                <p><a role="button" class="btn btn-lg btn-primary" href="{% url 'current_planning' %}">Planificació actual</a></p>
               </div>
             </div>
           </div>
@@ -104,7 +85,7 @@ body, html {
         <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-        <img class="rounded-circle" alt="Generic placeholder image" src="{% static 'media/pista_basquet.jpg'%}" width="140" height="140">
+        <img class="rounded-circle" alt="Generic placeholder image" src="{% static 'media/PIGALLE-BASKETBALL-2017-34.jpg'%}" width="140" height="140">
         <h2>Pista de bàsquet exterior</h2>
         <p>exemple1</p>
         <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>

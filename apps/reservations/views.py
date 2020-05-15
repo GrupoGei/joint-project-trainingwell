@@ -133,6 +133,9 @@ def presentation_page(request):
     return render(request, 'presentation_page.html')
 
 
+def current_planning(request):
+    return render(request, 'current_planning.html')
+
 @login_required
 def change_date(request, pk_inst):
     if request.method == 'POST':
