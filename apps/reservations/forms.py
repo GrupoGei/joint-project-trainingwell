@@ -125,3 +125,17 @@ class DateForm(forms.Form):
     def clean_date_field(self):
         return self.cleaned_data['date_field']
 
+
+class EventForm(forms.Form):
+    class Meta:
+        model = Event
+        fields = (
+            'name',
+            'description'
+        )
+        labels = {
+            'name': "Nom de l'esdeveniment",
+            'description': "Descripció"
+        }
+
+

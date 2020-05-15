@@ -15,5 +15,6 @@ urlpatterns = [
     path('cancel_reserves_cart/<str:username>', views.cancel_reserves_cart, name='cancel_cart'),
     path('formalize_reserves/<str:username>', views.formalize_reserves, name='formalize_reserves'),
     path('login_success/', views.login_success, name='login_success'),
+    path('create_event/<int:pk_reserve>', views.create_event, name='create_event'),
     path('', auth_views.LoginView.as_view(template_name='login.html', authentication_form=CustomAuthForm), name='login'),
 ]

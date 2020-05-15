@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import *
 from datetime import date, timedelta, datetime
-from .forms import RangeHoursForm, DateForm
+from .forms import RangeHoursForm, DateForm, EventForm
 from django.core.exceptions import PermissionDenied
 
 
@@ -225,3 +225,24 @@ def show_reserves(request, username):
     }
 
     return render(request, 'reserves_list.html', context)
+
+
+@login_required
+def create_event(request, pk_reserve):
+    reserve = Reservation.objects.get(pk=pk_reserve)
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.reservation = reserve
+            event.save()
+            return redirect('/show_reserves')
+    else:
+        form = EventForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, create_event, context)
+

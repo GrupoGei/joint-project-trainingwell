@@ -64,6 +64,17 @@ class Reservation(models.Model):
         self.in_shopping_cart = False
 
 
+class Event(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(max_length=300)
+    reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE, related_name='event')
+
+
+class Team(models.Model):
+    name = models.CharField(max_length=40)
+    events = models.ManyToManyField(Event, related_name='teams')
+
+
 def get_key(list, val):
     for item in list:
         if item[1] == val:
