@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import *
 from datetime import date, timedelta, datetime
-from .forms import RangeHoursForm, DateForm, EventForm
+from .forms import RangeHoursForm, DateForm, EventForm, TeamForm
 from django.core.exceptions import PermissionDenied
 
 
@@ -239,8 +239,25 @@ def create_event(request, pk_inst):
 
     context = {
         'form': form,
-        'installation_name': installation.name
+        'installation': installation
     }
 
     return render(request, 'create_event.html', context)
+
+
+@login_required
+def create_team(request, pk_inst):
+    if request.method == 'POST':
+        form = TeamForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/create_event/'+str(pk_inst))
+    else:
+        form = TeamForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'create_team.html', context)
 

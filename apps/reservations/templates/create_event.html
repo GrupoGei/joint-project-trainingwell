@@ -11,11 +11,17 @@
 </head>
 <body class="body">
     <div style="padding-top: 2%" class="container">
-        <h1>Crea l'esdeveniment per la instal·lació {{ installation_name }}</h1>
+        <h1>Crea l'esdeveniment per la instal·lació {{ installation.name }}</h1>
         <form method="post">
             {% csrf_token %}
             {{ form|crispy }}
-            <button style="float: left" class="btn btn-sm btn-primary" type="submit">Crea esdeveniment</button>
+            <div style="margin-bottom: 2%" class="row">
+                    <a style="margin-left: 1.4%" class="btn btn-sm btn-warning" href="{% url 'create_team' installation.pk %}">Afegir nou equip</a>
+            </div>
+            <div style="margin-bottom: 7%">
+                <button style="float: left" class="btn btn-sm btn-primary" type="submit">Crea esdeveniment</button>
+                <a class="cancel-staff-button" href="{% url 'index' %}">Cancel·la</a>
+            </div>
         </form>
     </div>
 </body>

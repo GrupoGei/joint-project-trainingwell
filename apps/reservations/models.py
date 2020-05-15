@@ -47,6 +47,7 @@ class RangeHours(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=300)
+    teams = models.ManyToManyField('Team', related_name='events')
 
     def __str__(self):
         return self.name
@@ -79,10 +80,9 @@ class Reservation(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=40)
-    events = models.ManyToManyField(Event, related_name='teams')
 
     def __str__(self):
-        return "Equip " + self.name
+        return self.name
 
 
 def get_key(list, val):

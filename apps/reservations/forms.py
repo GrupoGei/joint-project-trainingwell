@@ -132,7 +132,8 @@ class EventForm(forms.ModelForm):
         model = Event
         fields = (
             'name',
-            'description'
+            'description',
+            'teams'
         )
         labels = {
             'name': "Nom de l'esdeveniment",
@@ -140,3 +141,12 @@ class EventForm(forms.ModelForm):
         }
 
 
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = (
+            'name',
+        )
+        labels = {
+            'name': "Nom de l'equip",
+        }
