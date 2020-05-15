@@ -26,7 +26,7 @@
         <div class="header-right">
             {% if user.is_authenticated %}
                 {% if user.groups.all.0.name == "Organizers" %}
-                <a style="font-size: medium; color: mediumaquamarine; text-decoration: underline;" href="#">Les meves reserves</a>
+                <a style="font-size: medium; color: mediumaquamarine; text-decoration: underline;" href="{% url 'show_reserves' user.username %}">Les meves reserves</a>
                 {% endif %}
                 <a>Hola, {{  user}}</a>
             {% endif %}

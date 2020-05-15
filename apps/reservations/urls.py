@@ -6,6 +6,7 @@ from apps.reservations.forms import CustomAuthForm
 urlpatterns = [
     path('show_installations/', views.show_installations, name='index'),
     path('show_installations_reserved/<str:username>', views.show_installations_reserved, name='installations_reserved'),
+    path('show_reserves/<str:username>', views.show_reserves, name='show_reserves'),
     path('reservations/<int:pk_inst>/date/<str:current_date>', views.reserve_day_hours, name='reservations'),
     path('show_installations_reserved/<str:username>/checkout', views.checkout, name='checkout'),
     path('change_date/<int:pk_inst>', views.change_date, name='change_date'),
