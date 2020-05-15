@@ -24,7 +24,7 @@
                     </svg>
                     <div class="card-body">
                         <h4 style="font-weight: bold;"> {{ reservation.installation.name }}</h4>
-                      <p class="card-text">Dia {{ reservation.day }}<br>{{ reservation.range_hours }}<br>Preu: {{ reservation.price|floatformat:2 }}€</p>
+                      <p class="card-text">Dia {{ reservation.day }}<br>{{ reservation.range_hours }}<br>Preu: {{ reservation.price|floatformat:2 }}€ (IVA inclòs)</p>
                         {% if reservation.installation.discount != None %}
                             <p style="color: goldenrod" class="card-text">Descompte del {{ reservation.installation.discount }}% aplicat</p>
                         {% endif %}

@@ -176,7 +176,6 @@ def checkout(request, username):
     total_price = 0
     for reservation in session_reservations:
         total_price += reservation.price
-    total_price *= settings.GLOBAL_SETTINGS.get('IVA_TAX')
 
     context = {
         'total_price': total_price,
@@ -228,6 +227,7 @@ def show_reserves(request, username):
 @login_required
 def create_event(request, pk_inst):
     first_date = date.today() + timedelta(days=7)
+    first_date = datetime.strptime(str(first_date), "%Y-%m-%d").strftime("%d-%m-%Y")
     installation = Installation.objects.get(pk=pk_inst)
     if request.method == 'POST':
         form = EventForm(request.POST)

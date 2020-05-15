@@ -48,6 +48,9 @@ class Event(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=300)
 
+    def __str__(self):
+        return self.name
+
 
 class Reservation(models.Model):
     day = models.DateField()
@@ -56,23 +59,30 @@ class Reservation(models.Model):
     installation = models.ForeignKey(Installation, on_delete=models.CASCADE, related_name='reservations')
     price = models.FloatField(blank=True, null=True)
     in_shopping_cart = models.BooleanField(default=True)
-    event = models.OneToOneField(Event, on_delete=models.CASCADE, related_name='reservation', blank=True, null=True)
+    event = models.OneToOneField(Event, on_delete=models.CASCADE, related_name='reservation', null=True)
 
     def __str__(self):
         return "Reserva de " + self.organizer.username + ", dia " + str(self.day)
 
     def calculate_price(self):
-        self.price = self.range_hours.get_time_reserved() * self.installation.price_base
+        self.price = self.range_hours.get_time_reserved() * self.installation.price_base * settings.GLOBAL_SETTINGS.get('IVA_TAX')
         if self.installation.discount is not None:
             self.price = self.price * (1-(self.installation.discount/100))
 
     def take_out_from_cart(self):
         self.in_shopping_cart = False
 
+    def delete(self):
+        if self.event:
+            self.event.delete()
+
 
 class Team(models.Model):
     name = models.CharField(max_length=40)
     events = models.ManyToManyField(Event, related_name='teams')
+
+    def __str__(self):
+        return "Equip " + self.name
 
 
 def get_key(list, val):
