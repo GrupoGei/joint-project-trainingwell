@@ -15,5 +15,6 @@ urlpatterns = [
     path('prices/<str:sport>', views.dashboard_filtered_installations_prices, name='dashboard-filtered-installations-prices'),
     path('sport/create', views.dashboard_create_sport, name='dashboard-create-sport'),
     path('api-data/', views.get_data, name="api_data"),
+    path('chart/api-data/', views.ChartData.as_view()),
     path('chart/', views.chart_view, name= "chart"),
 ]
