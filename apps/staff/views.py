@@ -154,7 +154,7 @@ def dashboard_create_sport(request):
         sport_form = SportForm(request.POST)
         if sport_form.is_valid():
             sport_form.save()
-            return redirect('/dashboard/installationsb')
+            return redirect('/dashboard/installations')
     else:
         sport_form = SportForm()
 
