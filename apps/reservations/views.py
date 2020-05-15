@@ -1,5 +1,6 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import *
@@ -225,3 +226,4 @@ def show_reserves(request, username):
     }
 
     return render(request, 'reserves_list.html', context)
+

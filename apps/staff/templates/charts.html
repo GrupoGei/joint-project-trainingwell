@@ -1,0 +1,31 @@
+{% extends 'dashboard.html' %}
+
+    <script>
+        {% block jquery %}
+        var endpoint = '/dashboard/api-data/'
+
+    $.ajax({
+        method: "GET",
+        url: endpoint,
+        success: function (data) {
+            console.log(data)
+        },
+        error: function (error_data) {
+            console.log("error")
+            console.log(data)
+        }
+    })
+    {%  endblock %}
+    </script>
+
+{% block dashboard_content %}
+
+    <div class="row">
+        <div class="col-sm-12" url-endpoint="{% url 'api_data' %}">
+            <h1>Chart</h1>
+        </div>
+
+    </div>
+
+{% endblock %}
+
