@@ -214,3 +214,20 @@ def login_success(request):
         return redirect('/dashboard/report')
     else:
         return redirect('/show_installations/')
+
+
+@login_required
+def dashboard_reserves(request):
+    if 'organizer' in request.GET:
+        if request.GET['organizer'] != '':
+            reserves = Reservation.objects.filter(organizer__username=request.GET['organizer'])
+        else:
+            reserves = Reservation.objects.all()
+    else:
+        reserves = Reservation.objects.all()
+
+    context = {
+       'reserves': reserves,
+    }
+
+    return render(request, 'reserves_list_staff.html', context)

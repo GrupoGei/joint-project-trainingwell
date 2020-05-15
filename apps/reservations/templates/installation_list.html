@@ -7,50 +7,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Installation List</title>
+    <title>Les meves reserves</title>
 </head>
-<body class="body">
-    <div class="filter-installation">
-        <a style="color: aliceblue;">Filtra instal·lacions per: </a>
-        {% for sport in sports %}
-            <a href="{% url 'filtered_index' sport.name %}"> {{ sport.name }}</a>
-        {% endfor %}
-        <a href="{% url 'index' %}"> (Neteja el filtre)</a>
+<body>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+      <h1 class="h2">Les meves reserves</h1>
+        <form type="get" action="." style="margin: 0">
+            <input  id="search_box" type="text" name="organizer"  placeholder="Nom usuari" >
+            <button style="margin-bottom: 2%" class="btn btn-sm btn-primary" id="search_submit" type="submit" >Filtra</button>
+        </form>
     </div>
-    <div class="column-installation">
-       <div class="container">
-            {% if installations %}
-              <div class="row" style="padding-top: 60px">
-                  {% for installation in installations %}
-                      {% if installation.price_base != none %}
-                        <div class="col-md-4">
-                          <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                                <image href="{% static 'media/'%}{{ installation.image }}" height="100%" width="100%"></image>
-                            </svg>
-                            <div class="card-body">
-                                <p style="font-family: 'Arial Black'"> {{ installation.name }}</p>
-                              <p class="card-text">{{ installation.description }}</p>
-                                {% if installation.discount != none %}
-                                <p style="color: goldenrod" class="card-text">DESCOMPTE: {{ installation.discount }}%</p>
-                                {% endif %}
-                              <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group button-div">
-                                        <p><a class="btn btn-sm btn-success" href="/reservations/{{ installation.pk }}/date/{{ date }}" role="button">Reserva</a></p>
-                                    </div>
-                                  <small class="text-muted" style="margin-top: 10%">Capacitat: {{ installation.capacity }}</small>
-                              </div>
+    {% if reserves %}
+              <div class="row">
+                  {% for reserve in reserves %}
+                    <div class="col-md-4">
+                      <div class="card mb-4 shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                            <image href="{% static 'media/'%}{{ reserve.installation.image }}" height="100%" width="100%"></image>
+                        </svg>
+                        <div class="card-body">
+                            <h4 style="font-weight: bold;"> {{ reserve.installation.name }}</h4>
+                            <h5 style="font-weight: bold;"> {{ reserve.organizer.username }}</h5>
+                          <p class="card-text">Dia {{ reserve.day }}<br>{{ reserve.range_hours }}<br>Preu: {{ reserve.price|floatformat:2 }}€</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-cancel">
+                                <p><a class="btn btn-sm btn-danger" href="#" role="button">Detalls</a></p>
                             </div>
                           </div>
                         </div>
-                      {% endif %}
+                      </div>
+                    </div>
                   {% endfor %}
-                {% else %}
-                    <h2 class="header2">No hi ha cap instal·lació disponible en aquest moment.</h2>
-                {% endif %}
+            {% else %}
+                <h2 class="header2">No tens cap reserva realitzada fins ara.</h2>
+            {% endif %}
           </div>
-       </div>
-    </div>
 </body>
 </html>
 

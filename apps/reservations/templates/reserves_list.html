@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Installation List</title>
+</head>
+<body class="body">
+    <div class="filter-installation">
+        <a style="color: aliceblue;">Filtra instal·lacions per: </a>
+        {% for sport in sports %}
+            <a href="{% url 'filtered_index' sport.name %}"> {{ sport.name }}</a>
+        {% endfor %}
+        <a href="{% url 'index' %}"> (Neteja el filtre)</a>
+    </div>
+    <div class="column-installation">
+       <div class="container">
+            {% if installations %}
+              <div class="row" style="padding-top: 60px">
+                  {% for installation in installations %}
+                      {% if installation.price_base != none %}
+                        <div class="col-md-4">
+                          <div class="card mb-4 shadow-sm">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                                <image href="{% static 'media/'%}{{ installation.image }}" height="100%" width="100%"></image>
+                            </svg>
+                            <div class="card-body">
+                                <p style="font-family: 'Arial Black'"> {{ installation.name }}</p>
+                              <p class="card-text">{{ installation.description }}</p>
+                                {% if installation.discount != none %}
+                                <p style="color: goldenrod" class="card-text">DESCOMPTE: {{ installation.discount }}%</p>
+                                {% endif %}
+                              <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group button-div">
+                                        <p><a class="btn btn-sm btn-success" href="/reservations/{{ installation.pk }}/date/{{ date }}" role="button">Reserva</a></p>
+                                    </div>
+                                  <small class="text-muted" style="margin-top: 10%">Capacitat: {{ installation.capacity }}</small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+                  {% endfor %}
+                {% else %}
+                    <h2 class="header2">No hi ha cap instal·lació disponible en aquest moment.</h2>
+                {% endif %}
+          </div>
+       </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}
