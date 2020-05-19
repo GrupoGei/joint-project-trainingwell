@@ -10,6 +10,21 @@
     <title>Gestionar reserves</title>
 </head>
 <body class="body">
+    <div class="filter-installation">
+        <a style="color: aliceblue;">Filtra instal·lacions per esport: </a>
+        {% for sport in sports %}
+            <a href="{% url 'filtered_reserves' user.username sport.name %}"> {{ sport.name }}</a>
+        {% endfor %}
+        <a href="{% url 'show_reserves' user.username %}"> (Neteja el filtre)</a>
+    </div>
+    <div style="background-color: #181818" class="filter-installation">
+        <a style="color: aliceblue;">Filtra instal·lacions per equip: </a>
+        <form type="get" action="." style="margin-top: 0.8%">
+            {% csrf_token %}
+            <input  id="search_box" type="text" name="team"  placeholder="Nom equip" >
+            <button style="margin-bottom: 0.3%" class="btn btn-sm btn-primary" id="search_submit" type="submit" >Filtra</button>
+        </form>
+    </div>
     <div class="column-installation">
        <div class="container">
             {% if reserves %}

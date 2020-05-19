@@ -215,10 +215,32 @@ def login_success(request):
 
 @login_required
 def show_reserves(request, username):
-    reserves = Reservation.objects.filter(organizer__username=username)
+    if 'team' in request.GET:
+        if request.GET['team'] != '':
+            reserves = Reservation.objects.filter(event__teams__name__contains=request.GET['team'], organizer__username=username)
+        else:
+            reserves = Reservation.objects.filter(organizer__username=username)
+    else:
+        reserves = Reservation.objects.filter(organizer__username=username)
+
+    sports = Sport.objects.all()
 
     context = {
        'reserves': reserves,
+        'sports': sports
+    }
+
+    return render(request, 'reserves_list.html', context)
+
+
+@login_required
+def filtered_reserves(request, username, sport):
+    reserves = Reservation.objects.filter(organizer__username=username, installation__sports__name__contains=sport)
+    sports = Sport.objects.all()
+
+    context = {
+        'reserves': reserves,
+        'sports': sports
     }
 
     return render(request, 'reserves_list.html', context)
