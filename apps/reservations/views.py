@@ -224,10 +224,12 @@ def show_reserves(request, username):
         reserves = Reservation.objects.filter(organizer__username=username)
 
     sports = Sport.objects.all()
+    date_form = DateForm()
 
     context = {
-       'reserves': reserves,
-        'sports': sports
+        'reserves': reserves,
+        'sports': sports,
+        'date_form': date_form
     }
 
     return render(request, 'reserves_list.html', context)
@@ -244,6 +246,30 @@ def filtered_reserves(request, username, sport):
     }
 
     return render(request, 'reserves_list.html', context)
+
+
+@login_required
+def filtered_reserves_date(request, username, date):
+    reserves = Reservation.objects.filter(day=datetime.strptime(date, "%d-%m-%Y").strftime("%Y-%m-%d"),
+                                          organizer__username=username)
+    sports = Sport.objects.all()
+
+    context = {
+        'reserves': reserves,
+        'sports': sports
+    }
+
+    return render(request, 'reserves_list.html', context)
+
+
+@login_required
+def filter_date(request, username):
+    if request.method == 'POST':
+        date_form = DateForm(request.POST)
+        if date_form.is_valid():
+            curr_date = date_form.cleaned_data['date_field']
+            curr_date_formatted = str(curr_date.day) + '-' + str(curr_date.month) + '-' + str(curr_date.year)
+            return redirect('/show_reserves/' + username + '/date/' + curr_date_formatted)
 
 
 @login_required

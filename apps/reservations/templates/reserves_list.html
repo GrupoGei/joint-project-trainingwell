@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block page_content %}
@@ -6,6 +7,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    {{ date_form.media }}
     <meta charset="UTF-8">
     <title>Gestionar reserves</title>
 </head>
@@ -24,6 +29,14 @@
             <input  id="search_box" type="text" name="team"  placeholder="Nom equip" >
             <button style="margin-bottom: 0.3%" class="btn btn-sm btn-primary" id="search_submit" type="submit" >Filtra</button>
         </form>
+    </div>
+    <div style="background-color: #181818" class="filter-installation">
+        <a style="color: aliceblue;">Filtra instal·lacions per data: </a>
+            <form style="width: 15%" method="POST" action="{% url 'filter_date' user.username %}">
+                {% csrf_token %}
+                {{ date_form }}
+                <button style="float: left; margin-top: 2%" class="btn btn-sm btn-primary" type="submit">Cerca</button>
+            </form>
     </div>
     <div class="column-installation">
        <div class="container">
