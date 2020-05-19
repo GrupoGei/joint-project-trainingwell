@@ -32,7 +32,7 @@ class RangeHours(models.Model):
     end_hour = models.IntegerField(choices=hours)
 
     def __str__(self):
-        return "Hora " + str(self.hours[int(self.start_hour)][1]) + '-' + str(self.hours[int(self.end_hour)][1])
+        return str(self.hours[int(self.start_hour)][1]) + '-' + str(self.hours[int(self.end_hour)][1])
 
     def save(self):
         if self.start_hour > self.end_hour:
@@ -51,6 +51,17 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+    def print_teams(self):
+        teams = Team.objects.filter(events=self)
+        result = ""
+        i = 0
+        for team in teams:
+            result += team.name
+            i += 1
+            if i < len(teams):
+                result += ", "
+        return result
 
 
 class Reservation(models.Model):

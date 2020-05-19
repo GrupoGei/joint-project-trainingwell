@@ -225,6 +225,17 @@ def show_reserves(request, username):
 
 
 @login_required
+def event_detail(request, pk_event):
+    event = Event.objects.get(pk=pk_event)
+
+    context = {
+        'event': event,
+    }
+
+    return render(request, 'event_detail.html', context)
+
+
+@login_required
 def create_event(request, pk_inst):
     first_date = date.today() + timedelta(days=7)
     first_date = datetime.strptime(str(first_date), "%Y-%m-%d").strftime("%d-%m-%Y")
@@ -260,4 +271,12 @@ def create_team(request, pk_inst):
     }
 
     return render(request, 'create_team.html', context)
+
+
+@login_required
+def cancel_reserve(request, pk_reserve):
+    reserve_selected = Reservation.objects.get(pk=pk_reserve)
+    reserve_selected.delete()
+
+    return redirect('/show_reserves/'+str(request.user.username))
 

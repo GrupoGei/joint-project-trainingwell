@@ -17,5 +17,7 @@ urlpatterns = [
     path('formalize_reserves/<str:username>', views.formalize_reserves, name='formalize_reserves'),
     path('login_success/', views.login_success, name='login_success'),
     path('create_event/<int:pk_inst>', views.create_event, name='create_event'),
+    path('event/<int:pk_event>', views.event_detail, name='event_detail'),
+    path('reserves/delete/<int:pk_reserve>', views.cancel_reserve, name='cancel-reserve'),
     path('', auth_views.LoginView.as_view(template_name='login.html', authentication_form=CustomAuthForm), name='login'),
 ]
