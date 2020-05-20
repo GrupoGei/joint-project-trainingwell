@@ -282,3 +282,12 @@
 }
 
 
+#visor_imagenes {
+  text-align: center;
+}
+
+.blanco-rojo {
+  color: #FFFFFF;
+  background-color: #535151;
+  font-size: 20px;
+}

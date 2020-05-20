@@ -320,3 +320,11 @@ def cancel_reserve(request, pk_reserve):
 
     return redirect('/show_reserves/'+str(request.user.username))
 
+
+def presentation_page(request):
+    return render(request, 'presentation_page.html')
+
+
+def current_planning(request):
+    return render(request, 'current_planning.html')
+
