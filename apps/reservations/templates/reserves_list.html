@@ -34,7 +34,10 @@
         <a style="color: aliceblue;">Filtra instal·lacions per data: </a>
             <form style="width: 15%" method="get" action="{% url 'filter_date' user.username %}">
                 {% csrf_token %}
-                <input id="date" type="date" min="2020-01-01" max="2025-01-01" name="date" placeholder="Data">
+                <input type="date" id="start" name="trip-start"
+
+                min="2020-01-01" max="2030-12-31">
+
                 <button style="float: left; margin-top: 2%" class="btn btn-sm btn-primary" type="submit">Cerca</button>
             </form>
     </div>
@@ -53,9 +56,11 @@
                                     <h5 style="font-weight: bold;"> {{ reserve.installation.name }}</h5>
                                   <p class="card-text">Dia {{ reserve.day }}<br>{{ reserve.range_hours }}<br>Preu: {{ reserve.price|floatformat:2 }}€</p>
                                   <div class="d-flex justify-content-between align-items-center">
+                                      {% if reserve.event %}
                                     <div class="btn-cancel">
                                         <p><a class="btn btn-sm btn-info" href="{% url 'event_detail' reserve.event.pk %}" role="button">Detalls</a></p>
                                     </div>
+                                      {% endif %}
                                   </div>
                                 </div>
                               </div>
