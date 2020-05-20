@@ -198,6 +198,5 @@ class ChartData(APIView):
         data = {
             "labels": dades.keys(),
             "default": dades.values()
-
         }
         return Response(data)
