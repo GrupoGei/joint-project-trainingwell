@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block page_content %}
@@ -6,49 +7,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    {{ date_form.media }}
     <meta charset="UTF-8">
-    <title>Installation List</title>
+    <title>Gestionar reserves</title>
 </head>
 <body class="body">
     <div class="filter-installation">
-        <a style="color: aliceblue;">Filtra instal·lacions per: </a>
+        <a style="color: aliceblue;">Filtra instal·lacions per esport: </a>
         {% for sport in sports %}
-            <a href="{% url 'filtered_index' sport.name %}"> {{ sport.name }}</a>
+            <a href="{% url 'filtered_reserves' user.username sport.name %}"> {{ sport.name }}</a>
         {% endfor %}
-        <a href="{% url 'index' %}"> (Neteja el filtre)</a>
+        <a href="{% url 'show_reserves' user.username %}"> (Neteja el filtre)</a>
+    </div>
+    <div style="background-color: #181818" class="filter-installation">
+        <a style="color: aliceblue;">Filtra instal·lacions per equip: </a>
+        <form type="get" action="." style="margin-top: 0.8%">
+            {% csrf_token %}
+            <input id="search_box" type="text" name="team" placeholder="Nom equip" >
+            <button style="margin-bottom: 0.3%" class="btn btn-sm btn-primary" id="search_submit" type="submit" >Filtra</button>
+        </form>
+    </div>
+    <div style="background-color: #181818" class="filter-installation">
+        <a style="color: aliceblue;">Filtra instal·lacions per data: </a>
+            <form style="width: 15%" method="get" action="{% url 'filter_date' user.username %}">
+                {% csrf_token %}
+                <input type="date" id="start" name="trip-start"
+
+                min="2020-01-01" max="2030-12-31">
+
+                <button style="float: left; margin-top: 2%" class="btn btn-sm btn-primary" type="submit">Cerca</button>
+            </form>
     </div>
     <div class="column-installation">
        <div class="container">
-            {% if installations %}
-              <div class="row" style="padding-top: 60px">
-                  {% for installation in installations %}
-                      {% if installation.price_base != none %}
-                        <div class="col-md-4">
-                          <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                                <image href="{% static 'media/'%}{{ installation.image }}" height="100%" width="100%"></image>
-                            </svg>
-                            <div class="card-body">
-                                <p style="font-family: 'Arial Black'"> {{ installation.name }}</p>
-                              <p class="card-text">{{ installation.description }}</p>
-                                {% if installation.discount != none %}
-                                <p style="color: goldenrod" class="card-text">DESCOMPTE: {{ installation.discount }}%</p>
-                                {% endif %}
-                              <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group button-div">
-                                        <p><a class="btn btn-sm btn-success" href="/reservations/{{ installation.pk }}/date/{{ date }}" role="button">Reserva</a></p>
+            {% if reserves %}
+                      <div class="row" style="padding-top: 60px">
+                          {% for reserve in reserves %}
+                            <div class="col-md-4">
+                              <div class="card mb-4 shadow-sm">
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                                    <image href="{% static 'media/'%}{{ reserve.installation.image }}" height="100%" width="100%"></image>
+                                </svg>
+                                <div class="card-body">
+                                    <h4 style="font-weight: bold;"> {{ reserve.event.name }}</h4>
+                                    <h5 style="font-weight: bold;"> {{ reserve.installation.name }}</h5>
+                                  <p class="card-text">Dia {{ reserve.day }}<br>{{ reserve.range_hours }}<br>Preu: {{ reserve.price|floatformat:2 }}€</p>
+                                  <div class="d-flex justify-content-between align-items-center">
+                                      {% if reserve.event %}
+                                    <div class="btn-cancel">
+                                        <p><a class="btn btn-sm btn-info" href="{% url 'event_detail' reserve.event.pk %}" role="button">Detalls</a></p>
                                     </div>
-                                  <small class="text-muted" style="margin-top: 10%">Capacitat: {{ installation.capacity }}</small>
+                                      {% endif %}
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      {% endif %}
-                  {% endfor %}
-                {% else %}
-                    <h2 class="header2">No hi ha cap instal·lació disponible en aquest moment.</h2>
-                {% endif %}
-          </div>
+                          {% endfor %}
+                    {% else %}
+                        <h2 class="header2">No hi ha cap reserva disponible en aquest moment.</h2>
+                    {% endif %}
+                  </div>
        </div>
     </div>
 </body>

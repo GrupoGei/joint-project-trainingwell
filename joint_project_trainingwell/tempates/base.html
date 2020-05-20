@@ -1,47 +1,41 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <head>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-  </head>
-  <body>
-    <div class ="header">
-        <a class="logo">TRAININGWELL</a>
-        <div class="header-right">
+      <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   </head>
+   <body>
+      <div class ="header">
+         <a class="logo">TRAININGWELL</a>
+         <div class="header-right">
             {% if user.is_authenticated %}
-                {% if user.groups.all.0.name == "Organizers" %}
-                <a style="font-size: medium; color: mediumaquamarine; text-decoration: underline;" href="{% url 'show_reserves' user.username %}">Les meves reserves</a>
-                {% endif %}
-                <a>Hola, {{  user}}</a>
+            {% if user.groups.all.0.name == "Organizers" %}
+            <a style="font-size: medium; color: mediumaquamarine; text-decoration: underline;" href="{% url 'index' %}">Reserva instal·lacions</a>
+            <a style="font-size: medium; color: mediumaquamarine; text-decoration: underline;" href="{% url 'show_reserves' user.username %}">Les meves reserves</a>
             {% endif %}
-        </div>
-    </div>
-
-  </body>
-
-    {% block page_content %}
-	{% endblock %}
-
-    <script>
-    $(document).ready(function(){
-      {% block jquery %}{% endblock %}
-    })
-    </script>
+            <a>Hola, {{  user}}</a>
+            {% endif %}
+         </div>
+      </div>
+   </body>
+   {% block page_content %}
+   {% endblock %}
+   <script>
+      $(document).ready(function(){
+        {% block jquery %}{% endblock %}
+      })
+   </script>
 </html>
