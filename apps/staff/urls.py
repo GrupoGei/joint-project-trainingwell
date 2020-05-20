@@ -13,5 +13,8 @@ urlpatterns = [
     path('prices/', views.dashboard_manage_prices, name='dashboard-manage-prices'),
     path('prices/<int:pk_inst>', views.dashboard_modify_price, name='dashboard-installation-price'),
     path('prices/<str:sport>', views.dashboard_filtered_installations_prices, name='dashboard-filtered-installations-prices'),
-    path('sport/create', views.dashboard_create_sport, name='dashboard-create-sport')
+    path('sport/create', views.dashboard_create_sport, name='dashboard-create-sport'),
+    path('api-data/', views.get_data, name="api_data"),
+    path('chart/api-data/', views.ChartData.as_view()),
+
 ]

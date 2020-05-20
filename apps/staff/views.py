@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from apps.reservations.models import *
 from apps.staff.forms import InstallationForm, PriceForm, SportForm
@@ -163,3 +166,37 @@ def dashboard_create_sport(request):
     }
 
     return render(request, 'create_sport.html', context)
+
+def chart_view(request):
+    return render(request, 'charts.html', {})
+
+def get_data(request):
+
+    reservations = Reservation.objects.all()
+    data = defaultdict(int)
+    for reserva in reservations:
+        data[reserva.installation.name] += reserva.range_hours.get_time_reserved()
+
+    return JsonResponse(data)
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+class ChartData(APIView):
+
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+
+        reservations = Reservation.objects.all()
+        dades = defaultdict(int)
+        for reserva in reservations:
+            inst_name = reserva.installation.name
+            dades[inst_name] += reserva.range_hours.get_time_reserved()
+
+        data = {
+            "labels": dades.keys(),
+            "default": dades.values()
+        }
+        return Response(data)

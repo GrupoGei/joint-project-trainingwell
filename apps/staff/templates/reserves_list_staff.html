@@ -1,48 +1,48 @@
 {% extends "dashboard.html" %}
 {% load static %}
-
 {% block dashboard_content %}
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Gestionar reserves</title>
-</head>
-<body>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-      <h1 class="h2">Gestionar reserves</h1>
-        <form type="get" action="." style="margin: 0">
+   <head>
+      <meta charset="UTF-8">
+      <title>Gestionar reserves</title>
+   </head>
+   <body>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+         <h1 class="h2">Gestionar reserves</h1>
+         <form type="get" action="." style="margin: 0">
             <input  id="search_box" type="text" name="organizer"  placeholder="Nom usuari" >
             <button style="margin-bottom: 2%" class="btn btn-sm btn-primary" id="search_submit" type="submit" >Filtra</button>
-        </form>
-    </div>
-    {% if reserves %}
-              <div class="row">
-                  {% for reserve in reserves %}
-                    <div class="col-md-4">
-                      <div class="card mb-4 shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail"><title>Pista</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                            <image href="{% static 'media/'%}{{ reserve.installation.image }}" height="100%" width="100%"></image>
-                        </svg>
-                        <div class="card-body">
-                            <h4 style="font-weight: bold;"> {{ reserve.installation.name }}</h4>
-                            <h5 style="font-weight: bold;"> {{ reserve.organizer.username }}</h5>
-                          <p class="card-text">Dia {{ reserve.day }}<br>{{ reserve.range_hours }}<br>Preu: {{ reserve.price|floatformat:2 }}€</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-cancel">
-                                <p><a class="btn btn-sm btn-danger" href="{% url 'dashboard-cancel-reserve' reserve.pk %}" role="button">Elimina reserva</a></p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  {% endfor %}
-            {% else %}
-                <h2 class="header2">No hi ha cap reserva disponible en aquest moment.</h2>
-            {% endif %}
-          </div>
-</body>
+         </form>
+      </div>
+      {% if reserves %}
+      <div class="row">
+         {% for reserve in reserves %}
+         <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+               <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="true" role="img" aria-label="Placeholder: Thumbnail">
+                  <title>Pista</title>
+                  <rect width="100%" height="100%" fill="#55595c"></rect>
+                  <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                  <image href="{% static 'media/'%}{{ reserve.installation.image }}" height="100%" width="100%"></image>
+               </svg>
+               <div class="card-body">
+                  <h4 style="font-weight: bold;"> {{ reserve.installation.name }}</h4>
+                  <h5 style="font-weight: bold;"> {{ reserve.organizer.username }}</h5>
+                  <p class="card-text">Dia {{ reserve.day }}<br>{{ reserve.range_hours }}<br>Preu: {{ reserve.price|floatformat:2 }}€</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                     <div class="btn-cancel">
+                        <p><a class="btn btn-sm btn-danger" href="{% url 'dashboard-cancel-reserve' reserve.pk %}" role="button">Elimina reserva</a></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+         {% else %}
+         <h2 class="header2">No hi ha cap reserva disponible en aquest moment.</h2>
+         {% endif %}
+      </div>
+   </body>
 </html>
-
 {% endblock %}

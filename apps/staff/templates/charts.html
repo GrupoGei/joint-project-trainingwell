@@ -1,5 +1,4 @@
-{% extends "dashboard.html" %}
-{% load static %}
+{% extends 'dashboard.html' %}
 
 <script>
 {% block jquery %}
@@ -62,24 +61,15 @@ function setChart() {
 {% endblock %}
 </script>
 
-
 {% block dashboard_content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Informe ingressos-despeses</title>
-</head>
-<body>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-      <h1 class="h2">Informes</h1>
+    <div class="row">
+        <div style="width: 800px" url-endpoint="{% url 'api_data' %}">
+            <h1>Chart</h1>
+            <canvas style="background: white" id="myChart" width="400" height="400"></canvas>
+        </div>
+
     </div>
-    <div style="width: 800px" url-endpoint="{% url 'api_data' %}">
-        <h1>Chart</h1>
-        <canvas style="background: white" id="myChart" width="400" height="400"></canvas>
-    </div>
-</body>
-</html>
 
 {% endblock %}
+

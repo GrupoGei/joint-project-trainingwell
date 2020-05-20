@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'crispy_forms',
-    'tempus_dominus'
+    'tempus_dominus',
+    'rest_framework'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
