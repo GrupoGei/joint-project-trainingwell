@@ -24,21 +24,18 @@
     </div>
     <div style="background-color: #181818" class="filter-installation">
         <a style="color: aliceblue;">Filtra instal·lacions per equip: </a>
-        <form type="get" action="." style="margin-top: 0.8%">
+        <form type="get" action="." style="margin-top: 0.8%; margin-left: 4%;">
             {% csrf_token %}
             <input id="search_box" type="text" name="team" placeholder="Nom equip" >
             <button style="margin-bottom: 0.3%" class="btn btn-sm btn-primary" id="search_submit" type="submit" >Filtra</button>
         </form>
     </div>
-    <div style="background-color: #181818" class="filter-installation">
+    <div style="background-color: #2b2b2b" class="filter-installation">
         <a style="color: aliceblue;">Filtra instal·lacions per data: </a>
-            <form style="width: 15%" method="get" action="{% url 'filter_date' user.username %}">
+            <form method="get" action="." style="margin-top: 0.8%; margin-left: 4%;">
                 {% csrf_token %}
-                <input type="date" id="start" name="trip-start"
-
-                min="2020-01-01" max="2030-12-31">
-
-                <button style="float: left; margin-top: 2%" class="btn btn-sm btn-primary" type="submit">Cerca</button>
+                <input type="date" id="search_box" name="date" min="2020-01-01" max="2030-12-31">
+                <button style="margin-bottom: 0.3%" class="btn btn-sm btn-primary" type="submit">Filtra</button>
             </form>
     </div>
     <div class="column-installation">
