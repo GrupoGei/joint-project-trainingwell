@@ -262,7 +262,7 @@ def filtered_reserves_date(request, username, date):
     return render(request, 'reserves_list.html', context)
 
 
-@login_required
+#@login_required
 def filter_date(request, username):
     if request.method == 'POST':
         date_form = DateForm(request.POST)

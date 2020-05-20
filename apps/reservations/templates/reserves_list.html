@@ -26,15 +26,15 @@
         <a style="color: aliceblue;">Filtra instal·lacions per equip: </a>
         <form type="get" action="." style="margin-top: 0.8%">
             {% csrf_token %}
-            <input  id="search_box" type="text" name="team"  placeholder="Nom equip" >
+            <input id="search_box" type="text" name="team" placeholder="Nom equip" >
             <button style="margin-bottom: 0.3%" class="btn btn-sm btn-primary" id="search_submit" type="submit" >Filtra</button>
         </form>
     </div>
     <div style="background-color: #181818" class="filter-installation">
         <a style="color: aliceblue;">Filtra instal·lacions per data: </a>
-            <form style="width: 15%" method="POST" action="{% url 'filter_date' user.username %}">
+            <form style="width: 15%" method="get" action="{% url 'filter_date' user.username %}">
                 {% csrf_token %}
-                {{ date_form }}
+                <input id="date" type="date" min="2020-01-01" max="2025-01-01" name="date" placeholder="Data">
                 <button style="float: left; margin-top: 2%" class="btn btn-sm btn-primary" type="submit">Cerca</button>
             </form>
     </div>
