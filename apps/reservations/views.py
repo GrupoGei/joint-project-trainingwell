@@ -264,7 +264,6 @@ def filtered_reserves(request, username, sport):
     return render(request, 'reserves_list.html', context)
 
 
-@login_required
 def event_detail(request, pk_event):
     event = Event.objects.get(pk=pk_event)
 
@@ -326,5 +325,53 @@ def presentation_page(request):
 
 
 def current_planning(request):
-    return render(request, 'current_planning.html')
+    if 'team' in request.GET:
+        if request.GET['team'] != '':
+            reserves = Reservation.objects.filter(event__teams__name__contains=request.GET['team'], day__gte=date.today())
+        else:
+            reserves = Reservation.objects.filter(day__gte=date.today())
+    elif 'date' in request.GET:
+        if request.GET['date'] != '':
+            reserves = Reservation.objects.filter(day__gte=date.today(), day=request.GET['date'])
+        else:
+            reserves = Reservation.objects.filter(day__gte=date.today())
+    else:
+        reserves = Reservation.objects.filter(day__gte=date.today())
+
+    sports = Sport.objects.all()
+    date_form = DateForm()
+
+    context = {
+        'reserves': reserves,
+        'sports': sports,
+        'date_form': date_form
+    }
+
+    return render(request, 'current_planning.html', context)
+
+
+def filtered_events(request, sport):
+    if 'team' in request.GET:
+        if request.GET['team'] != '':
+            reserves = Reservation.objects.filter(event__teams__name__contains=request.GET['team'], day__gte=date.today())
+        else:
+            reserves = Reservation.objects.filter(day__gte=date.today(), installation__sports__name__contains=sport)
+    elif 'date' in request.GET:
+        if request.GET['date'] != '':
+            reserves = Reservation.objects.filter(day__gte=date.today(), day=request.GET['date'])
+        else:
+            reserves = Reservation.objects.filter(day__gte=date.today(), installation__sports__name__contains=sport)
+    else:
+        reserves = Reservation.objects.filter(day__gte=date.today(), installation__sports__name__contains=sport)
+
+    sports = Sport.objects.all()
+    date_form = DateForm()
+
+    context = {
+        'reserves': reserves,
+        'sports': sports,
+        'date_form': date_form
+    }
+
+    return render(request, 'current_planning.html', context)
 
