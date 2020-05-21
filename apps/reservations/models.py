@@ -32,7 +32,7 @@ class RangeHours(models.Model):
     end_hour = models.IntegerField(choices=hours)
 
     def __str__(self):
-        return "Hora " + str(self.hours[int(self.start_hour)][1]) + '-' + str(self.hours[int(self.end_hour)][1])
+        return str(self.hours[int(self.start_hour)][1]) + '-' + str(self.hours[int(self.end_hour)][1])
 
     def save(self):
         if self.start_hour > self.end_hour:
@@ -44,6 +44,26 @@ class RangeHours(models.Model):
         return self.end_hour-self.start_hour
 
 
+class Event(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(max_length=300)
+    teams = models.ManyToManyField('Team', related_name='events')
+
+    def __str__(self):
+        return self.name
+
+    def print_teams(self):
+        teams = Team.objects.filter(events=self)
+        result = ""
+        i = 0
+        for team in teams:
+            result += team.name
+            i += 1
+            if i < len(teams):
+                result += ", "
+        return result
+
+
 class Reservation(models.Model):
     day = models.DateField()
     range_hours = models.ForeignKey(RangeHours, on_delete=models.SET_NULL, null=True, related_name='reservation')
@@ -51,17 +71,29 @@ class Reservation(models.Model):
     installation = models.ForeignKey(Installation, on_delete=models.CASCADE, related_name='reservations')
     price = models.FloatField(blank=True, null=True)
     in_shopping_cart = models.BooleanField(default=True)
+    event = models.OneToOneField(Event, on_delete=models.CASCADE, related_name='reservation', null=True)
 
     def __str__(self):
         return "Reserva de " + self.organizer.username + ", dia " + str(self.day)
 
     def calculate_price(self):
-        self.price = self.range_hours.get_time_reserved() * self.installation.price_base
+        self.price = self.range_hours.get_time_reserved() * self.installation.price_base * settings.GLOBAL_SETTINGS.get('IVA_TAX')
         if self.installation.discount is not None:
             self.price = self.price * (1-(self.installation.discount/100))
 
     def take_out_from_cart(self):
         self.in_shopping_cart = False
+
+    def delete(self):
+        if self.event:
+            self.event.delete()
+
+
+class Team(models.Model):
+    name = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name
 
 
 def get_key(list, val):

@@ -7,10 +7,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    {{ date_form.media }}
     <meta charset="UTF-8">
     <title>Gestionar reserves</title>
 </head>
@@ -24,21 +20,18 @@
     </div>
     <div style="background-color: #181818" class="filter-installation">
         <a style="color: aliceblue;">Filtra instal·lacions per equip: </a>
-        <form type="get" action="." style="margin-top: 0.8%">
+        <form type="get" action="." style="margin-top: 0.8%; margin-left: 4%;">
             {% csrf_token %}
             <input id="search_box" type="text" name="team" placeholder="Nom equip" >
             <button style="margin-bottom: 0.3%" class="btn btn-sm btn-primary" id="search_submit" type="submit" >Filtra</button>
         </form>
     </div>
-    <div style="background-color: #181818" class="filter-installation">
+    <div style="background-color: #2b2b2b" class="filter-installation">
         <a style="color: aliceblue;">Filtra instal·lacions per data: </a>
-            <form style="width: 15%" method="get" action="{% url 'filter_date' user.username %}">
+            <form method="get" action="." style="margin-top: 0.8%; margin-left: 4%;">
                 {% csrf_token %}
-                <input type="date" id="start" name="trip-start"
-
-                min="2020-01-01" max="2030-12-31">
-
-                <button style="float: left; margin-top: 2%" class="btn btn-sm btn-primary" type="submit">Cerca</button>
+                <input type="date" id="search_box" name="date" min="2020-01-01" max="2030-12-31">
+                <button style="margin-bottom: 0.3%" class="btn btn-sm btn-primary" type="submit">Filtra</button>
             </form>
     </div>
     <div class="column-installation">

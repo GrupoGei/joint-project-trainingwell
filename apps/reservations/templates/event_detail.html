@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ event.name }}</title>
+</head>
+<body class="body">
+    <div class="container" style="margin-top: 3%">
+        {% if user.groups.all.0.name == "Organizers" %}
+        <div>
+            <h2>Detalls de la reserva</h2>
+            <hr>
+            <p>Instal·lació reservada: {{ event.reservation.installation }}</p>
+            <p>Día reservat: {{ event.reservation.day }}</p>
+            <p>Hores reservades: {{ event.reservation.range_hours }}</p>
+            <p>Preu de la reserva: {{ event.reservation.price|floatformat:2 }} €</p>
+            <p><a class="btn btn-sm btn-danger" href="{% url 'cancel-reserve' event.reservation.pk %}" role="button">Elimina reserva</a></p>
+        </div>
+        {% endif %}
+        <div>
+            <h2>Detalls de l'esdeveniment</h2>
+            <hr>
+            <p>Nom de l'esdeveniment: {{ event.name }}</p>
+            <p>Descripció de l'esdeveniment: {{ event.description }}</p>
+            <p>Lloc: {{ event.reservation.installation }}</p>
+            <p>Día: {{ event.reservation.day }}</p>
+            <p>Hora: {{ event.reservation.range_hours }}</p>
+            <p>Equips participants: {{ event.print_teams }}</p>
+        </div>
+    </div>
+
+</body>
+</html>
+
+{% endblock %}

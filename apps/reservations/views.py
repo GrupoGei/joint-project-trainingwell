@@ -1,23 +1,20 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import *
 from datetime import date, timedelta, datetime
-from .forms import RangeHoursForm, DateForm
+from .forms import RangeHoursForm, DateForm, EventForm, TeamForm
 from django.core.exceptions import PermissionDenied
 
 
 @login_required
 def show_installations(request):
-    first_date = date.today() + timedelta(days=7)
     installations = Installation.objects.order_by('sports')
     sports = Sport.objects.all()
 
     context = {
         'installations': installations,
-        'date': first_date,
         'sports': sports
     }
 
@@ -37,7 +34,7 @@ def show_installations_reserved(request, username):
 
 
 @login_required
-def reserve_day_hours(request, pk_inst, current_date):
+def reserve_day_hours(request, pk_inst, current_date, pk_event):
 
     if str(datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d")) < str((date.today() + timedelta(days=7))):
         # TODO: ERROR PAGE
@@ -66,7 +63,7 @@ def reserve_day_hours(request, pk_inst, current_date):
     if request.method == 'POST':
         form = RangeHoursForm(request.POST)
         if form.is_valid():
-            form.save(True, request.user, current_date, hours_available, installation)
+            form.save(True, request.user, current_date, hours_available, installation, pk_event)
 
             return redirect('/show_installations_reserved/' + request.user.username)
     else:
@@ -179,7 +176,6 @@ def checkout(request, username):
     total_price = 0
     for reservation in session_reservations:
         total_price += reservation.price
-    total_price *= settings.GLOBAL_SETTINGS.get('IVA_TAX')
 
     context = {
         'total_price': total_price,
@@ -219,11 +215,116 @@ def login_success(request):
 
 @login_required
 def show_reserves(request, username):
-    reserves = Reservation.objects.filter(organizer__username=username)
+    if 'team' in request.GET:
+        if request.GET['team'] != '':
+            reserves = Reservation.objects.filter(event__teams__name__contains=request.GET['team'], organizer__username=username)
+        else:
+            reserves = Reservation.objects.filter(organizer__username=username)
+    elif 'date' in request.GET:
+        if request.GET['date'] != '':
+            reserves = Reservation.objects.filter(organizer__username=username, day=request.GET['date'])
+        else:
+            reserves = Reservation.objects.filter(organizer__username=username)
+    else:
+        reserves = Reservation.objects.filter(organizer__username=username)
+
+    sports = Sport.objects.all()
+    date_form = DateForm()
 
     context = {
-       'reserves': reserves,
+        'reserves': reserves,
+        'sports': sports,
+        'date_form': date_form
     }
 
     return render(request, 'reserves_list.html', context)
+
+
+@login_required
+def filtered_reserves(request, username, sport):
+    if 'team' in request.GET:
+        if request.GET['team'] != '':
+            reserves = Reservation.objects.filter(event__teams__name__contains=request.GET['team'], organizer__username=username, installation__sports__name__contains=sport)
+        else:
+            reserves = Reservation.objects.filter(organizer__username=username, installation__sports__name__contains=sport)
+    elif 'date' in request.GET:
+        if request.GET['date'] != '':
+            reserves = Reservation.objects.filter(organizer__username=username, day=request.GET['date'], installation__sports__name__contains=sport)
+        else:
+            reserves = Reservation.objects.filter(organizer__username=username, installation__sports__name__contains=sport)
+    else:
+        reserves = Reservation.objects.filter(organizer__username=username, installation__sports__name__contains=sport)
+    sports = Sport.objects.all()
+
+    context = {
+        'reserves': reserves,
+        'sports': sports
+    }
+
+    return render(request, 'reserves_list.html', context)
+
+
+@login_required
+def event_detail(request, pk_event):
+    event = Event.objects.get(pk=pk_event)
+
+    context = {
+        'event': event,
+    }
+
+    return render(request, 'event_detail.html', context)
+
+
+@login_required
+def create_event(request, pk_inst):
+    first_date = date.today() + timedelta(days=7)
+    first_date = datetime.strptime(str(first_date), "%Y-%m-%d").strftime("%d-%m-%Y")
+    installation = Installation.objects.get(pk=pk_inst)
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            event = form.save()
+            return redirect('/reservations/'+str(pk_inst)+'/date/'+str(first_date)+'/event/'+str(event.pk))
+    else:
+        form = EventForm()
+
+    context = {
+        'form': form,
+        'installation': installation
+    }
+
+    return render(request, 'create_event.html', context)
+
+
+@login_required
+def create_team(request, pk_inst):
+    if request.method == 'POST':
+        form = TeamForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/create_event/'+str(pk_inst))
+    else:
+        form = TeamForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'create_team.html', context)
+
+
+@login_required
+def cancel_reserve(request, pk_reserve):
+    reserve_selected = Reservation.objects.get(pk=pk_reserve)
+    reserve_selected.delete()
+
+    return redirect('/show_reserves/'+str(request.user.username))
+
+
+def presentation_page(request):
+    return render(request, 'presentation_page.html')
+
+
+def current_planning(request):
+    return render(request, 'current_planning.html')
 
