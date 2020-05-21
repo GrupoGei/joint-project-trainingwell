@@ -212,7 +212,7 @@ def login_success(request):
     if request.user.groups.filter(name='Responsible').exists():
         return redirect('/dashboard/installations')
     elif request.user.groups.filter(name='Manager').exists():
-        return redirect('/dashboard/report')
+        return redirect('/dashboard/report_util')
     else:
         return redirect('/show_installations/')
 

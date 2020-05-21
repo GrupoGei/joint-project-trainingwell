@@ -75,9 +75,13 @@ function setChart() {
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
       <h1 class="h2">Informes</h1>
     </div>
-    <div style="width: 800px" url-endpoint="{% url 'api_data' %}">
-        <h1>Chart</h1>
+    <div style="width: 800px; margin: auto; float: top;" url-endpoint="/dashboard/chart/api-data/">
+        <h1>Utilització</h1>
         <canvas style="background: white" id="myChart" width="400" height="400"></canvas>
+
+    </div>
+    <div style="float: bottom; padding: 2%;">
+        <p><a class="btn btn-primary btn-lg" href="{% url "dashboard-reports_rend" %}" role="button">Canvia a Grafic de Rendiment</a></p>
     </div>
 </body>
 </html>

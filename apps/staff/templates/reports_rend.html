@@ -1,0 +1,89 @@
+{% extends "dashboard.html" %}
+{% load static %}
+
+<script>
+{% block jquery %}
+var endpoint = '/dashboard/chart/api-data-rend/'
+var defaultData = []
+var labels = [];
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        labels = data.labels
+        defaultData = data.default
+        setChart()
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+function setChart() {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Ingressos per instal·lació en €',
+            data: defaultData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+    }
+
+{% endblock %}
+</script>
+
+
+{% block dashboard_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe ingressos-despeses</title>
+</head>
+<body>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+      <h1 class="h2">Informes</h1>
+    </div>
+    <div style="width: 800px; margin: auto; float: top;" url-endpoint="/dashboard/chart/api-data/">
+        <h1>Rendiment</h1>
+        <canvas style="background: white" id="myChart" width="400" height="400"></canvas>
+
+    </div>
+    <div style="float: bottom; padding: 2%;">
+        <p><a class="btn btn-primary btn-lg" href="{% url "dashboard-reports_util" %}" role="button">Canvia a Grafic d'utilització</a></p>
+    </div>
+</body>
+</html>
+
+{% endblock %}
