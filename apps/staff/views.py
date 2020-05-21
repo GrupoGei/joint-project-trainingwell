@@ -1,9 +1,13 @@
 from collections import defaultdict
+import datetime
 
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from apps.reservations.models import *
 from apps.staff.forms import InstallationForm, PriceForm, SportForm
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 def dashboard_installations(request):
@@ -104,10 +108,15 @@ def dashboard_filtered_organizers(request, username):
     return render(request, 'reserves_list_staff.html', context)
 
 
-def dashboard_reports(request):
+def dashboard_reports_util(request):
     context = {}
 
-    return render(request, 'reports.html', context)
+    return render(request, 'reports_util.html', context)
+
+def dashboard_reports_rend(request):
+    context = {}
+
+    return render(request, 'reports_rend.html', context)
 
 
 def dashboard_manage_prices(request):
@@ -167,20 +176,24 @@ def dashboard_create_sport(request):
 
     return render(request, 'create_sport.html', context)
 
-def chart_view(request):
-    return render(request, 'charts.html', {})
+class ChartData_rend(APIView):
 
-def get_data(request):
+    authentication_classes = []
+    permission_classes = []
 
-    reservations = Reservation.objects.all()
-    data = defaultdict(int)
-    for reserva in reservations:
-        data[reserva.installation.name] += reserva.range_hours.get_time_reserved()
+    def get(self, request, format=None):
 
-    return JsonResponse(data)
+        reservations = Reservation.objects.filter(day__month=datetime.today().month)
+        dades = defaultdict(int)
+        for reserva in reservations:
+            inst_name = reserva.installation.name
+            dades[inst_name] += reserva.price
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
+        data = {
+            "labels": dades.keys(),
+            "default": dades.values()
+        }
+        return Response(data)
 
 class ChartData(APIView):
 
@@ -189,7 +202,7 @@ class ChartData(APIView):
 
     def get(self, request, format=None):
 
-        reservations = Reservation.objects.all()
+        reservations = Reservation.objects.filter(day__month=datetime.today().month)
         dades = defaultdict(int)
         for reserva in reservations:
             inst_name = reserva.installation.name
