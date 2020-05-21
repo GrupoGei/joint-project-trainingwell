@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TRAININGWELL</title>
+</head>
+<body>
+    <header>
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <!-- Slide One - Set the background image for this slide in the line below -->
+          <div class="carousel-item active" style="background-image: url('https://i.redd.it/hwlkxh0nr2f01.jpg');">
+            <div class="carousel-caption d-none d-md-block">
+              <h2 class="display-4" style="color: white; background: #546652">El complex</h2>
+              <p class="lead" style="background: #546652">Disposem d'una superficie de més de 50.000m2 que dona cabuda a tot tipus d'instal·lacions esportives</p>
+            </div>
+          </div>
+          <!-- Slide Two - Set the background image for this slide in the line below -->
+          <div class="carousel-item" style="background-image: url('https://images.wallpapersden.com/image/download/ball-football-field_21713_1920x1080.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+              <h2 class="display-4" style="color: white; background: #002561">Els nostres valors</h2>
+              <p class="lead" style="color: white; background: #002561">TrainingWell neix com un servei per aquells esportistes amateur o semiprofessionals que desitgen accedir a instal·lacions de nivell professional per unes hores o dies sense haver d'assumir elevats costos</p>
+            </div>
+          </div>
+          <!-- Slide Three - Set the background image for this slide in the line below -->
+          <div class="carousel-item" style="background-image: url('https://www.nordic.ca/data/images/project/slider/NORDIC_Centre-sportif-Bois-de-Boulogne_1.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+              <h2 class="display-4" style="color: white; background: #6B4000">Horari de les instal·lacions</h2>
+              <p class="lead" style="color: white; background: #6B4000">Horari únic per totes les instal·lacions de 10:00 a 23:00</p>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <section class="py-5">
+      <div class="container" style="line-height: 1.5">
+        <div style="text-align: center">
+            <h1 class="display-6">Planificació actual d'esdeveniments</h1>
+            <p class="lead">La planificació actual d'esdeveniments et permet visualitzar tots els esdeveniments planificats pròximament en el complex o trobar l'esdeveniment que estàs buscant a través de les opcions de
+                            filtratge per esport, data o equip. <br> Vols accedir a la planificació actual d'esdeveniments
+                            del complex ? Fes-ho prement el botó:</p>
+            <a role="button" class="btn btn-lg btn-primary" href="{% url 'current_planning' %}">Planificació d'esdeveniments</a>
+            <br>
+            <br>
+            <br>
+        </div>
+        <div style="text-align: justify">
+            <h1 class="display-6">Valors TrainingWell</h1>
+            <p class="lead">Somos conscientes de que velar por la salud y el bienestar es cada día más importante en un mundo frenético como el nuestro, donde los ratos de paz y tranquilidad para reencontrarnos con nuestros compañeros son un bien escaso. Igualmente, muchos pequeños equipos no pueden disponer de instalaciones propias para entrenar o realizar sus actividades.</p>
+            <p class="lead">TrainingWell nace como un servicio para aquellos deportistas amateur o semiprofesionales que deseen acceder a instalaciones de nivel profesional por unas horas o días sin tener que asumir elevados costes.</p>
+        </div>
+        <div style="text-align: justify">
+            <h1 class="display-6">Les nostres instal·lacions</h1>
+            <p class="lead">El complejo tiene un pabellón polideportivo con capacidad para 1040 espectadores, 3 salas de fitness, vestuarios con sauna y jacuzzi, 1 frontón cubierto, pistas de baloncesto, pista polideportiva, pista de atletismo, 10 pistas de tenis de tierra, piscina cubierta, parque infantil , bar-restaurante y una zona social con dos salas de juegos, hemeroteca, sala-aula de Tv y una ludoteca.</p>
+            <p class="lead">Atención: no se permite la entrada de animales en nuestras instalaciones.</p>
+        </div>
+          <div class="row" style="margin: 4%; text-align: justify">
+              <div class="column" style="margin-right: 4%">
+                <div class="card" style="width: 18rem;">
+                  <img src="{% static '/media/padel.jpg' %}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                      <h5 class="card-title" style="font-weight: bold">PISTAS DE PÁDEL</h5>
+                    <p class="card-text text-justify">Nueve pistas de pádel, 7 de ellas de cristal y las otras 2 de muro.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column" style="margin-right: 4%">
+                <div class="card" style="width: 18rem;">
+                  <img src="{% static '/media/atletisme.jpg' %}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                      <h5 class="card-title" style="font-weight: bold">PISTA DE ATLETISMO Y CAMPO DE FÚTBOL</h5>
+                    <p class="card-text">Gran pista de atletismo, con 300m de cuerda situada alrededor del césped del campo de fútbol, donde se realizan actividades propias de la sección de atletismo y otros.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column" style="margin-right: 4%">
+                <div class="card" style="width: 18rem;">
+                  <img src="{% static '/media/poli.jpg' %}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                      <h5 class="card-title" style="font-weight: bold">PISTAS POLIDEPORTIVAS CUBIERTAS</h5>
+                    <p class="card-text">El club cuenta con dos pistas polideportivas. Un campo de baloncesto y de mini-baloncesto, y un campo para la práctica del hockey y el patinaje y en el que también se juega al fútbol sala.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column" style="margin-right: 4%">
+                <div class="card" style="width: 18rem;">
+                  <img src="{% static '/media/pabellon.png' %}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                      <h5 class="card-title" style="font-weight: bold">PABELLÓN</h5>
+                    <p class="card-text">El pabellón polideportivo es el espacio más utilizado para las secciones de gimnasia rítmica, baloncesto y fútbol sala.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column" style="margin-right: 4%">
+                <div class="card" style="width: 18rem;">
+                  <img src="{% static '/media/vestuario.jpg' %}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                      <h5 class="card-title" style="font-weight: bold">VESTUARIOS</h5>
+                    <p class="card-text">Amplias y prácticas estancias, divididas en una zona seca y una zona húmeda, donde se encuentra un baño turco.</p>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </section>
+</body>
+
+{% endblock %}

@@ -291,3 +291,12 @@
   background-color: #535151;
   font-size: 20px;
 }
+
+.carousel-item {
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

@@ -322,7 +322,7 @@ def cancel_reserve(request, pk_reserve):
 
 
 def presentation_page(request):
-    return render(request, 'presentation_page.html')
+    return render(request, 'presentation.html')
 
 
 def current_planning(request):
