@@ -43,7 +43,7 @@
        {% endif %}
        </div>
        <div class="current-reserves-buttons">
-           <a style="margin-right: 2%" class="btn btn-sm btn-secondary" href="{% url 'index' %}" role="button">Continuar reservant</a>
+           <a style="margin-right: 2%" class="btn btn-sm btn-secondary" href="{% url 'installations' %}" role="button">Continuar reservant</a>
            <a style="margin-right: 2%" class="btn btn-sm btn-primary" href="{% url 'checkout' user.username %}" role="button">Finalitzar reserva</a>
            <a style="text-decoration: underline; color: red" href="{% url 'cancel_cart' user.username %}" >Cancel·lar procés de reserva</a>
        </div>

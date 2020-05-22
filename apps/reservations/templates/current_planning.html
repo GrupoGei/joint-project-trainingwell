@@ -49,7 +49,11 @@
                                 <div class="card-body">
                                     <h4 style="font-weight: bold;"> {{ reserve.event.name }}</h4>
                                     <h5 style="font-weight: bold;"> {{ reserve.installation.name }}</h5>
-                                  <p class="card-text">Dia {{ reserve.day }}<br>{{ reserve.range_hours }}<br><br>Equips participants:<br>{{ reserve.event.print_teams }}</p>
+                                  <p class="card-text">Dia {{ reserve.day }}<br>{{ reserve.range_hours }}
+                                      {% if reserve.event.teams.count != 0 %}
+                                      <br><br>Equips participants:<br>{{ reserve.event.print_teams }}
+                                      {% endif %}
+                                  </p>
                                   <div class="d-flex justify-content-between align-items-center">
                                       {% if reserve.event %}
                                     <div class="btn-cancel">

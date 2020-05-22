@@ -15,7 +15,7 @@
         {% for sport in sports %}
             <a href="{% url 'filtered_index' sport.name %}"> {{ sport.name }}</a>
         {% endfor %}
-        <a href="{% url 'index' %}"> (Neteja el filtre)</a>
+        <a href="{% url 'installations' %}"> (Neteja el filtre)</a>
     </div>
     <div class="column-installation">
        <div class="container">

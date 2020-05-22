@@ -47,7 +47,7 @@ class RangeHours(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=300)
-    teams = models.ManyToManyField('Team', related_name='events')
+    teams = models.ManyToManyField('Team', related_name='events', blank=True)
 
     def __str__(self):
         return self.name

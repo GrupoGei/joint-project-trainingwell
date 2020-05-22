@@ -42,6 +42,7 @@ def reserve_day_hours(request, pk_inst, current_date, pk_event):
     installation = Installation.objects.get(pk=pk_inst)
     date_reservations = Reservation.objects.filter(day=datetime.strptime(current_date, "%d-%m-%Y").strftime("%Y-%m-%d"), installation=installation)
     range_hours_reserved = RangeHours.objects.none()
+    event = Event.objects.get(pk=pk_event)
 
     for reservation in date_reservations:
         range_hours_reserved |= RangeHours.objects.filter(reservation=reservation)
@@ -58,6 +59,7 @@ def reserve_day_hours(request, pk_inst, current_date, pk_event):
         'total_hours': total_hours,
         'hours_available': hours_available,
         'hours_reserved': hours_reserved,
+        'event': event
     }
 
     if request.method == 'POST':
@@ -128,13 +130,13 @@ def get_hours_reserved(range_hours_reserved):
 
 
 @login_required
-def change_date(request, pk_inst):
+def change_date(request, pk_inst, pk_event):
     if request.method == 'POST':
         date_form = DateForm(request.POST)
         if date_form.is_valid():
             curr_date = date_form.cleaned_data['date_field']
             curr_date_formatted = str(curr_date.day) + '-' + str(curr_date.month) + '-' + str(curr_date.year)
-            return redirect('/reservations/' + str(pk_inst) + '/date/' + curr_date_formatted)
+            return redirect('/reservations/' + str(pk_inst) + '/date/' + curr_date_formatted + '/event/' + str(pk_event))
 
 
 @login_required
