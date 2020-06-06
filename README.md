@@ -16,7 +16,7 @@ The following instructions will allow you to run the project locally.
 ### Prerequisites
 In order to install all the dependencies needed to run the Django project, you need to run `pip install -r requirements.txt`. It is recommended to use a virtual environment for that. <br>
 Also you will need to apply the migrations from the Django models by using `python manage.py makemigrations` and `python manage.py migrate`. <br>
-After that, you will be able to start the project locally using `python manage.py runserver`
+After that, you will be able to start the project locally using `python manage.py runserver`.
 
 ### Running the tests
 In order to run all the tests performed for the project code use `python manage.py test`.
