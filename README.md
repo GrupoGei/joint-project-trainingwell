@@ -10,6 +10,16 @@ The system to be created will be a single web platform available in different de
 among others, and it will provide all the necessary services to event organizers, the facilities responsible, the complex manager 
 and participants or observers, in order to satisfy their needs effectively.
 
+# Getting Started
+The following instructions will allow you to run the project locally.
+
+## Prerequisites
+In order to install all the dependencies needed to run the Django project, you need to run `pip install -r requirements.txt`. It is recommended to use a virtual environment for that.
+Also you will need to apply the migrations from the Django models by using `python manage.py makemigrations` and `python manage.py migrate`.
+After that, you will be able to start the project locally using `python manage.py runserver`
+
+## Running the tests
+In order to run all the tests performed for the project code use `python manage.py test`.
 
 # Team Members
 Gerard Gonzalez, Pau Ibáñez, Mario Martí, Robert Munne, Jorge Nueno, Marc Hidalgo
