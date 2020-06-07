@@ -34,11 +34,11 @@ class RangeHours(models.Model):
     def __str__(self):
         return str(self.hours[int(self.start_hour)][1]) + '-' + str(self.hours[int(self.end_hour)][1])
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.start_hour > self.end_hour:
             raise ValidationError("L'hora d'inici no pot superar la hora final.")
         else:
-            super(RangeHours, self).save()
+            super(RangeHours, self).save(*args, **kwargs)
 
     def get_time_reserved(self):
         return self.end_hour-self.start_hour
@@ -84,9 +84,10 @@ class Reservation(models.Model):
     def take_out_from_cart(self):
         self.in_shopping_cart = False
 
-    def delete(self):
+    def delete(self, *args, **kwargs):
         if self.event:
-            self.event.delete()
+            self.event.delete(*args, **kwargs)
+        super(Reservation, self).delete(*args, **kwargs)
 
 
 class Team(models.Model):
