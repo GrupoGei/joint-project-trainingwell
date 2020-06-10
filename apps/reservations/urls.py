@@ -3,6 +3,7 @@ from apps.reservations import views
 from django.contrib.auth import views as auth_views
 from apps.reservations.forms import CustomAuthForm
 
+
 urlpatterns = [
     path('show_installations/', views.show_installations, name='installations'),
     path('show_installations_reserved/<str:username>', views.show_installations_reserved, name='installations_reserved'),
@@ -24,5 +25,6 @@ urlpatterns = [
     path('current_planning/', views.current_planning, name='current_planning'),
     path('current_planning/<str:sport>/', views.filtered_events, name='filtered_events'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html', authentication_form=CustomAuthForm), name='login'),
+    path('logout/', views.logout_view, name='logout'),
 
 ]

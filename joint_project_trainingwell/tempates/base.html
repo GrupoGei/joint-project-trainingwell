@@ -27,7 +27,9 @@
             <a style="font-size: medium; color: mediumaquamarine; text-decoration: underline;" href="{% url 'show_reserves' user.username %}">Les meves reserves</a>
             {% endif %}
             <a>Hola, {{  user}}</a>
+                <a style="width: 175px" class="btn btn-primary" href="{% url 'logout' %}" role="button">Tancar sessió</a>
             {% else %}
+
             <a style="width: 175px" class="btn btn-primary" href="{% url 'login' %}" role="button">Inicia la sessió</a>
             {% endif %}
          </div>

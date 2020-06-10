@@ -6,6 +6,7 @@ from .models import *
 from datetime import date, timedelta, datetime
 from .forms import RangeHoursForm, DateForm, EventForm, TeamForm
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth import logout
 
 
 @login_required
@@ -32,6 +33,10 @@ def show_installations_reserved(request, username):
 
     return render(request, 'installation_reserved_list.html', context)
 
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
 
 @login_required
 def reserve_day_hours(request, pk_inst, current_date, pk_event):
